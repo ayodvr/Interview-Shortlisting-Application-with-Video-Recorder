@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use \Illuminate\Support\Facades\URL;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,10 +14,24 @@ use Illuminate\Support\Facades\Route;
 |
 */
 Route::resource('/interview', 'InterviewController');
+Route::resource('/fileupload', 'FileUploadsController');
+
+Route::get('/details/{id}', 'InterviewController@details')->name('detail');
+
+// URL::temporarySignedRoute('detail.show', now()->addSeconds(5));
+
 Route::middleware(['auth'])->group(function () {
 
 Route::get('/', function () {
     return view('auth/login');
+});
+
+Route::get('/all_entries', function () {
+    return view('entries/index');
+});
+
+Route::get('/all_sessions', function () {
+    return view('entries/all_records');
 });
 
 Route::get('/index', function () {
@@ -25,10 +40,6 @@ Route::get('/index', function () {
 
 Route::get('/interview', function () {
     return view('Batchs/interview_batch');
-});
-
-Route::get('/productTour/create', function () {
-            // 
 });
 
 Route::resource('/users', 'UserController');

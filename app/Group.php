@@ -22,5 +22,7 @@ class Group extends Model
     //     return $this->hasMany('App\Interview');
     // }
 
-    
+    public function fileuploads(){
+        return $this->belongsTo('App\FileUploads');
+    }
 }

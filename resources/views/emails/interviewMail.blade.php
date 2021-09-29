@@ -11,6 +11,7 @@
 <title></title>
 <!--[if !mso]><!-->
 <link href="https://fonts.googleapis.com/css?family=Oswald" rel="stylesheet" type="text/css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 <!--<![endif]-->
 <style type="text/css">
 body {
@@ -192,15 +193,15 @@ width: auto !important;
                         <!--[if mso]><table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td style="padding-right: 10px; padding-left: 10px; padding-top: 0px; padding-bottom: 10px; font-family: Arial, sans-serif"><![endif]-->
                         <div style="color:#ffffff;font-family:'Oswald', Arial, 'Helvetica Neue', Helvetica, sans-serif;line-height:1.2;padding-top:0px;padding-right:10px;padding-bottom:10px;padding-left:10px;">
                             <div class="txtTinyMce-wrapper" style="font-size: 14px; line-height: 1.2; font-family: 'Oswald', Arial, 'Helvetica Neue', Helvetica, sans-serif; color: #eee; mso-line-height-alt: 17px;">
-                                <p style="margin: 0; font-size: 58px; line-height: 1.2; text-align: center; word-break: break-word; mso-line-height-alt: 70px; margin-top: 0; margin-bottom: 0;"><span style="font-size: 58px;">Hr56 Virtual Interview</span></p>
+                                <p style="margin: 0; font-size: 30px; line-height: 1.2; text-align: center; word-break: break-word; mso-line-height-alt: 70px; margin-top: 0; margin-bottom: 0;"><span style="font-size: 30px;">Hr56 Virtual Interview</span></p>
                             </div>
                         </div>
                         <!--[if mso]></td></tr></table><![endif]-->
                         <!--[if mso]><table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td style="padding-right: 10px; padding-left: 10px; padding-top: 0px; padding-bottom: 10px; font-family: Arial, sans-serif"><![endif]-->
                         <div style="color:#082954;font-family:Nunito, Arial, Helvetica Neue, Helvetica, sans-serif;line-height:1.2;padding-top:0px;padding-right:10px;padding-bottom:10px;padding-left:10px;">
                             <div class="txtTinyMce-wrapper" style="font-size: 14px; line-height: 1.2; color: #082954; font-family: Nunito, Arial, Helvetica Neue, Helvetica, sans-serif; mso-line-height-alt: 17px;">
-                                <p style="margin: 0; font-size: 22px; line-height: 1.2; word-break: break-word; text-align: center; mso-line-height-alt: 26px; margin-top: 0; margin-bottom: 0;"><span style="font-size: 22px;">
-                                    {{ $content }}</span></p>
+                                <p style="margin: 0; font-size: 22px; line-height: 1.2; word-break: break-word; text-align: center; mso-line-height-alt: 26px; margin-top: 0; margin-bottom: 0;">
+                                    {{ $email_content }}</p>
                             </div>
                         </div>
                         <!--[if mso]></td></tr></table><![endif]-->
@@ -225,7 +226,7 @@ width: auto !important;
                     <div style="border-top:0px solid transparent; border-left:0px solid transparent; border-bottom:0px solid transparent; border-right:0px solid transparent; padding-top:5px; padding-bottom:0px; padding-right: 10px; padding-left: 10px;">
                         <!--<![endif]-->
                         <div class="button-container" align="center" style="padding-top:10px;padding-right:10px;padding-bottom:10px;padding-left:10px;">
-                            <!--[if mso]><table width="100%" cellpadding="0" cellspacing="0" border="0" style="border-spacing: 0; border-collapse: collapse; mso-table-lspace:0pt; mso-table-rspace:0pt;"><tr><td style="padding-top: 10px; padding-right: 10px; padding-bottom: 10px; padding-left: 10px" align="center"><v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word" href="http://www.example.com" style="height:34.5pt;width:187.5pt;v-text-anchor:middle;" arcsize="29%" stroke="false" fillcolor="#041538"><w:anchorlock/><v:textbox inset="0,0,0,0"><center style="color:#ffffff; font-family:Arial, sans-serif; font-size:18px"><![endif]--><a href="http://127.0.0.1:8000/interview/{{$id}}" target="_blank" style="-webkit-text-size-adjust: none; text-decoration: none; display: inline-block; color: #ffffff; background-color: #041538; border-radius: 13px; -webkit-border-radius: 13px; -moz-border-radius: 13px; width: auto; width: auto; border-top: 1px solid #041538; border-right: 1px solid #041538; border-bottom: 1px solid #041538; border-left: 1px solid #041538; padding-top: 5px; padding-bottom: 5px; font-family: Nunito, Arial, Helvetica Neue, Helvetica, sans-serif; text-align: center; mso-border-alt: none; word-break: keep-all;"><span style="padding-left:35px;padding-right:35px;font-size:18px;display:inline-block;letter-spacing:undefined;"><span style="font-size: 16px; line-height: 2; word-break: break-word; mso-line-height-alt: 32px;"><span style="font-size: 18px; line-height: 36px;" data-mce-style="font-size: 18px; line-height: 36px;">Link</span></span></span></a>
+                            <a href="{{URL::temporarySignedRoute('detail', now()->addSeconds(10), ['id' => $id ])}}" class='btn' target="_blank" style="-webkit-text-size-adjust: none; text-decoration: none; display: inline-block; color: #ffffff; background-color: #041538; border-radius: 13px; -webkit-border-radius: 13px; -moz-border-radius: 13px; width: auto; width: auto; border-top: 1px solid #041538; border-right: 1px solid #041538; border-bottom: 1px solid #041538; border-left: 1px solid #041538; padding-top: 5px; padding-bottom: 5px; font-family: Nunito, Arial, Helvetica Neue, Helvetica, sans-serif; text-align: center; mso-border-alt: none; word-break: keep-all;"><span style="padding-left:35px;padding-right:35px;font-size:18px;display:inline-block;letter-spacing:undefined;"><span style="font-size: 16px; line-height: 2; word-break: break-word; mso-line-height-alt: 32px;"><span style="font-size: 18px; line-height: 36px;" data-mce-style="font-size: 18px; line-height: 36px;">Link</span></span></span></a>
                             <!--[if mso]></center></v:textbox></v:roundrect></td></tr></table><![endif]-->
                         </div>
                         <!--[if (!mso)&(!IE)]><!-->
@@ -305,6 +306,12 @@ width: auto !important;
 </tbody>
 </table>
 <!--[if (IE)]></div><![endif]-->
+
+<script>
+$('.btn').on('click', function(e) {
+  $(this).prop('disabled',true);
+});
+</script>
 </body>
 
 </html>

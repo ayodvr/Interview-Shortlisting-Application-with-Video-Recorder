@@ -9,17 +9,7 @@
             <!-- start page title -->
             <div class="row">
                 <div class="col-12">
-                    <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                        <h4 class="mb-sm-0 font-size-18">Set interview questions</h4>
-
-                        <div class="page-title-right">
-                            {{-- <ol class="breadcrumb m-0">
-                                <li class="breadcrumb-item"><a href="javascript: void(0);">Forms</a></li>
-                                <li class="breadcrumb-item active">Form Validation</li>
-                            </ol> --}}
-                            
-                        </div>
-                        @if(count($errors) > 0)
+                    @if(count($errors) > 0)
                             @foreach($errors->all() as $error)
                             <div class="alert alert-danger" style="width:92%; margin:auto">
                                 {{$error}}</div>
@@ -33,7 +23,17 @@
                             @if(session('error'))
                             <div class="alert alert-danger" style="width:92%; margin:auto">
                             {{session('error')}}</div>
-                            @endif
+                        @endif
+                    <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+                        <h4 class="mb-sm-0 font-size-18">Set interview questions</h4>
+
+                        <div class="page-title-right">
+                            {{-- <ol class="breadcrumb m-0">
+                                <li class="breadcrumb-item"><a href="javascript: void(0);">Forms</a></li>
+                                <li class="breadcrumb-item active">Form Validation</li>
+                            </ol> --}}
+                            
+                        </div>
                     </div>
                 </div>
             </div>
@@ -87,7 +87,7 @@
                                             <th>Question</th>
                                         </tr>
                                         <tr>  
-                                            <td><input type="text" class="form-control" name="question[]" id="formrow-firstname-input" placeholder="Type question..."/></td>   
+                                            <td><input type="text" class="form-control" name="question[]" id="formrow-firstname-input" placeholder="Enter question"/></td>   
                                             <td><button type="button" name="add" id="add" class="btn btn-success">Add More</button></td>  
                                         </tr>  
                                     </table>

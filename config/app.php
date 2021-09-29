@@ -163,6 +163,7 @@ return [
         Illuminate\View\ViewServiceProvider::class,
         Spatie\Permission\PermissionServiceProvider::class,
         Maatwebsite\Excel\ExcelServiceProvider::class,
+        Spatie\UrlSigner\Laravel\UrlSignerServiceProvider::class,
         
 
 
@@ -178,7 +179,7 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
-        Zusamarehan\Tourify\TourifyServiceProvider::class,
+        // Zusamarehan\Tourify\TourifyServiceProvider::class,
 
     ],
 
@@ -232,7 +233,7 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
         'Excel' => Maatwebsite\Excel\Facades\Excel::class,
-
+        'UrlSigner' => Spatie\UrlSigner\Laravel\UrlSignerFacade::class,
     ],
 
 ];

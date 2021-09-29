@@ -66,12 +66,12 @@
                     </a>
                 </li>
 
-                {{-- <li>
-                    <a href="{{route('interviewVideo')}}" class="waves-effect">
+                <li>
+                    <a href="/all_entries" class="waves-effect">
                         <i class="bx bx-grid-small"></i>
-                        <span key="t-authentication">Live Recording</span>
+                        <span key="t-authentication">All Entries</span>
                     </a>
-                </li> --}}
+                </li>
             </ul>
         </div>
         <!-- Sidebar -->

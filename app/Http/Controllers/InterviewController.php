@@ -6,8 +6,10 @@ use Illuminate\Http\Request;
 use App\User;
 use App\Interview;
 Use App\Group;
+Use App\Questions;
 use Carbon\Carbon;
 use App\Mail\InterviewMail;
+use Illuminate\Support\Facades\Session;
 use Mail;
 
 class InterviewController extends Controller
@@ -52,18 +54,33 @@ class InterviewController extends Controller
             'question' => 'required|array'
         ]);
 
-            $question   = $request->question;
+            $questions   = $request->question;
 
-            $interviews = new Interview;
-            $interviews->title = $request->title;
-            $interviews->expire = $request->expire;
-            $interviews->instruction = $request->instruction;
-            $interviews->number = $request->number;
-            $interviews->question = json_encode($question);
-            $interviews->user_id = auth()->user()->id;
-            $interviews->group_id = "";
 
-            $interviews->save();
+            //
+                $interviews = new Interview;
+                $interviews->title = $request->title;
+                $interviews->expire = $request->expire;
+                $interviews->instruction = $request->instruction;
+                $interviews->number = $request->number;
+                $interviews->question = json_encode($questions);
+                $interviews->user_id = auth()->user()->id;
+                $interviews->group_id = "";
+
+                $res = $interviews->save();
+
+               if($res) {
+
+                 foreach($questions as $question){
+                    //dd($question);
+                    $questionObj = new Questions;
+                    $questionObj->interview_id = $interviews->id;
+                    $questionObj->question = $question;
+
+                    $questionObj->save();
+                 }
+                 
+               }
 
 
         return redirect()->route('interview.edit', $interviews->id);
@@ -82,15 +99,28 @@ class InterviewController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+
+    public function details($id="")
     {
+        $interview = Interview::where('id',$id)->first();
+        //dd($interview);
+        return view('interviews.details')->with('interview', $interview)
+                                        ->with('id', $id);
 
+    }
+
+    public function show(Request $request, $id)
+    {
         $interview = Interview::findorfail($id);
+        //dd($interview);
 
-        $questions = json_decode($interview['question']);
-
-        //dd($questions);
-
+        if($interview) $questions = Questions::where("interview_id",$interview->id)->simplePaginate(1);
+  
+        if ($request->ajax()) {
+            return view('interviews.questions', compact('questions'));
+        }
+      
+       // return view('ajaxPagination',compact('products'));
         $date = strtotime($interview->expire);
 
         $new_date = date("Y-m-d", $date);
@@ -103,7 +133,10 @@ class InterviewController extends Controller
         }
         else
         {
-            return view('interviews.show')->with('questions', $questions);
+            return view('interviews.show')->with('questions',$questions)
+                                            ->with('questions',$questions)
+                                            ->with('interview',$interview);
+                                         
         }
 
     }
@@ -132,11 +165,13 @@ class InterviewController extends Controller
      */
     public function update(Request $request, $id)
     {
+        //dd($request->file());
         
         $data = [
-            'subject'=> $request->get('subject'),
-            'email_content'=> $request->get('email_content'),
+            'subject'          => $request->get('subject'),
+            'email_content'    => $request->get('email_content'),
         ];
+
 
         $group_id = $request->only('group_id');
 
@@ -147,9 +182,8 @@ class InterviewController extends Controller
         $group = $request->get('group_id');
 
         $emails = User::where('group_id', $group)->pluck('email');
-      
 
-    $dispatch_mails = $emails;
+        $dispatch_mails = $emails;
     
         foreach($dispatch_mails as $email){
 
@@ -157,26 +191,18 @@ class InterviewController extends Controller
 
                 'id'    => $interview->id,
                 'subject' => $request->get('subject'),
-                'content'  => $request->get('content'),
+                'email_content'  => $request->get('email_content'),
 
-            ), function($message) use ($email){
-
-                $message->to($email)->subject('Test subject');
-            });
+            ),function($message) use ($request, $email)
+            {
+                $message->to($email);
+                $message->subject($request->get('subject'));      
+            }); 
+            
+            }
         }
-    }
-
-        
-        
-           
-
 
         return redirect()->route('interview.create')->with('success','Links sent successfully');
-
-
-        
-
-
     }
 
     /**

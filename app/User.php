@@ -46,4 +46,8 @@ class User extends Authenticatable
     public function interviews(){
         return $this->belongsTo('App\Interview');
     }
+
+    public function fileuploads(){
+        return $this->belongsTo('App\FileUploads');
+    }
 }
