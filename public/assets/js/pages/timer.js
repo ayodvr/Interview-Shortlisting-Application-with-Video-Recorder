@@ -36,7 +36,7 @@ $(".startClock").click( function(){
         }
       
         updateClock();
-        const timeinterval = clearInterval(updateClock, 1000);
+        const timeinterval = setInterval(updateClock, 1000);
       }
       
       const deadline = new Date(Date.parse(new Date()) + 15 * 24 * 60 * 60 * 1000);

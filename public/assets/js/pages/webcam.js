@@ -113,7 +113,7 @@ var video = document.querySelector('video');
   
   var recorder; // globally accessible
   
-  var videoMaxlengthInSeconds = 100000;
+  var videoMaxlengthInSeconds = 10000;
   
   document.getElementById('btn-start-recording').onclick = function() {
       this.disabled = true;

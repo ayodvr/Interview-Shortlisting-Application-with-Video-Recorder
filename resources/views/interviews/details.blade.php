@@ -41,13 +41,13 @@
                 <div class="collapse navbar-collapse" id="topnav-menu-content">
                     <ul class="navbar-nav ms-auto" id="topnav-menu" >
                         <li class="nav-item">
-                            <a class="nav-link active" href="#home">Instructions</a>
+                            <a class="nav-link active" href="#home"></a>
                         </li>
                         {{-- <li class="nav-item">
                             <a class="nav-link" href="crypto-ico-landing.html#about">About</a>
                         </li> --}}
                         <li class="nav-item">
-                            <a class="nav-link" href="#features">Features</a>
+                            <a class="nav-link" href="#features">Instructions</a>
                         </li>
                         {{-- <li class="nav-item">
                             <a class="nav-link" href="crypto-ico-landing.html#roadmap">Roadmap</a>
@@ -112,7 +112,7 @@
                     <div class="col-lg-12">
                         <div class="text-center mb-5">
                             {{-- <div class="small-title">Features</div> --}}
-                            <h4>Features</h4>
+                            <h4>Instructions</h4>
                         </div>
                     </div>
                 </div>
