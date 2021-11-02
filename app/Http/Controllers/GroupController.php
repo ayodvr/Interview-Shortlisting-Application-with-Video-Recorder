@@ -3,12 +3,14 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+Use Alert;
 use App\User;
 use App\Group;
 use App\Candidate;
 use App\Exports\GroupTemplateExport;
 use App\Imports\GroupsImport;
 use Maatwebsite\Excel\Facades\Excel;
+
 
 class GroupController extends Controller
 {
@@ -74,7 +76,7 @@ class GroupController extends Controller
 
         Group::create($data);
 
-        return redirect()->back()->with('success','Group created successfully');
+        return redirect()->back()->withSuccess('Group Created!');
     }
 
     /**
@@ -96,7 +98,11 @@ class GroupController extends Controller
      */
     public function edit($id)
     {
-        //
+        $group = Group::find($id);
+
+	    return response()->json([
+	      'data' => $group
+	    ]);
     }
 
     /**
@@ -108,7 +114,9 @@ class GroupController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        Group::updateOrCreate(['id' => $id],['name' => $request->name]);
+     
+        return response()->json([ 'success' => true ]);
     }
 
     /**
@@ -120,6 +128,15 @@ class GroupController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+     public function kill($id)
+    {
+        $group = Group::findorfail($id);
+
+        $group->delete();
+
+        return redirect()->back()->withSuccess('Group Deleted!');
     }
 
     public function group_users($group_name = null)

@@ -208,7 +208,8 @@
                                             <td>
                                                 <div class="d-flex gap-3">
                                                     <a href="{{route('users.edit', $user->id)}}" class="text-success"><i class="mdi mdi-pencil font-size-18"></i></a>
-                                                    <a href="{{route('users.kill', $user->id)}}" class="text-danger"><i class="mdi mdi-delete font-size-18"></i></a>
+                                                    <a href="{{route('users.kill', $user->id)}}" class="text-danger destroy-confirm" data-name ="{{ $user->name }}">
+                                                        <i class="mdi mdi-delete font-size-18"></i></a>
                                                 </div>
                                             </td>
                                         </tr>
@@ -328,7 +329,22 @@
         </div>
     </footer>
 </div>
-
-
+<script>
+    $('.destroy-confirm').on('click', function (event) {
+      var name = $(this).data("name");
+      event.preventDefault();
+      const url = $(this).attr('href');
+        swal({
+            title:  `Are you sure you want to delete ${name}?`,
+            text: 'This group will be permanantly deleted!',
+            icon: 'warning',
+            buttons: ["Cancel", "Yes!"],
+        }).then(function(value) {
+            if (value) {
+                window.location.href = url;
+            }
+      });
+});
+</script> 
 @endsection
 

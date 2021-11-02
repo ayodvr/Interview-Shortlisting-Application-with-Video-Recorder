@@ -49,7 +49,7 @@ class InterviewController extends Controller
 
             'title' => 'required',
             'expire' => 'required',
-            'instruction' => 'required',
+            'instruction' => 'required|max:400',
             'number' => 'required',
             'question' => 'required|array'
         ]);
@@ -100,47 +100,49 @@ class InterviewController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    public function details($id="")
+    public function details($id="", $user_id ="")
     {
-        $interview = Interview::where('id',$id)->first();
+        $interview = Interview::where('id', $id)->first();
         //dd($interview);
         return view('interviews.details')->with('interview', $interview)
-                                        ->with('id', $id);
+                                        ->with(['id' => $id, 'user_id' => $user_id]);
 
     }
 
-    public function show(Request $request, $id)
-    {
-        $interview = Interview::findorfail($id);
-        //dd($interview);
+    // public function show(Request $request, $id)
+    // {
+    //     //dd($id);
+    //     $interview = Interview::findorfail($id);
+    //     //dd($interview);
 
-        if($interview) $questions = Questions::where("interview_id",$interview->id)->simplePaginate(1);
+    //     if($interview) $questions = Questions::where("interview_id",$interview->id)->simplePaginate(1);
   
-        if ($request->ajax()) {
-            return view('interviews.questions', compact('questions'));
-        }
+    //     if ($request->ajax()) {
+    //         return view('interviews.questions', compact('questions'));
+    //     }
       
-       // return view('ajaxPagination',compact('products'));
-        $date = strtotime($interview->expire);
+    //    // return view('ajaxPagination',compact('products'));
+    //     $date = strtotime($interview->expire);
 
-        $new_date = date("Y-m-d", $date);
+    //     $new_date = date("Y-m-d", $date);
     
-        $now = date("Y-m-d");
+    //     $now = date("Y-m-d");
 
-        if ($now > $new_date) {
+    //     if ($now > $new_date) {
 
-            return view('interviews.linkExpire');
-        }
-        else
-        {
-            return view('interviews.show')->with('questions',$questions)
-                                            ->with('questions',$questions)
-                                            ->with('interview',$interview);
+    //         return view('interviews.linkExpire');
+    //     }
+    //     else
+    //     {
+    //         return view('interviews.show')->with('questions',$questions)
+    //                                         ->with('questions',$questions)
+    //                                         ->with('interview',$interview);
                                          
-        }
+    //     }
 
-    }
+    // }
 
+   
     /**
      * Show the form for editing the specified resource.
      *
@@ -181,15 +183,16 @@ class InterviewController extends Controller
 
         $group = $request->get('group_id');
 
-        $emails = User::where('group_id', $group)->pluck('email');
-
+        $emails = User::where('group_id', $group)->pluck('email','id');
+        //dd($emails);
         $dispatch_mails = $emails;
     
-        foreach($dispatch_mails as $email){
-
+        foreach($dispatch_mails as $user_id => $email){
+                //dd($user_id);
             \Mail::send('emails.interviewMail',array(
 
                 'id'    => $interview->id,
+                'user_id' => $user_id,
                 'subject' => $request->get('subject'),
                 'email_content'  => $request->get('email_content'),
 
@@ -215,4 +218,38 @@ class InterviewController extends Controller
     {
         //
     }
+
+    public function show_interview(Request $request, $id = "", $user_id = "")
+    {
+        $interview = Interview::findorfail($id);
+        if($interview){
+            $interview["newuser_id"] = $user_id;
+        }
+        //dd($interview);
+
+        if($interview) $questions = Questions::where("interview_id", $interview->id)->simplePaginate(1);
+    
+        if ($request->ajax()) {
+            return view('interviews.questions', compact('questions'));
+        }
+        
+        // return view('ajaxPagination',compact('products'));
+        $date = strtotime($interview->expire);
+
+        $new_date = date("Y-m-d", $date);
+    
+        $now = date("Y-m-d");
+
+        if ($now > $new_date) {
+
+            return view('interviews.linkExpire');
+        }
+        else
+        {
+            return view('interviews.blob')->with('questions',$questions)
+                                            ->with('interview',$interview);
+                                            
+        }
+    }
+
 }

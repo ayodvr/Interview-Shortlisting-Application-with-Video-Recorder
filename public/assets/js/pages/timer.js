@@ -1,44 +1,49 @@
-$(".startClock").click( function(){
-    function getTimeRemaining(endtime) {
-        const total = Date.parse(endtime) - Date.parse(new Date());
-        const seconds = Math.floor((total / 1000) % 60);
-        const minutes = Math.floor((total / 1000 / 10) % 10);
-        // const hours = Math.floor((total / (1000 * 60 * 60)) % 24);
-        // const days = Math.floor(total / (1000 * 60 * 60 * 24));
-        
-        return {
-          total,
-        //   days,
-        //   hours,
-          minutes,
-          seconds
-        };
-      }
-      
-      function initializeClock(id, endtime) {
-        const clock = document.getElementById(id);
-        // const daysSpan = clock.querySelector('.days');
-        // const hoursSpan = clock.querySelector('.hours');
-        const minutesSpan = clock.querySelector('.minutes');
-        const secondsSpan = clock.querySelector('.seconds');
-      
-        function updateClock() {
-          const t = getTimeRemaining(endtime);
-      
-        //   daysSpan.innerHTML = t.days;
-        //   hoursSpan.innerHTML = ('0' + t.hours).slice(-2);
-          minutesSpan.innerHTML = ('0' + t.minutes).slice(-2);
-          secondsSpan.innerHTML = ('0' + t.seconds).slice(-2);
-      
-          if (t.total <= 0) {
-            clearInterval(timeinterval);
-          }
-        }
-      
-        updateClock();
-        const timeinterval = setInterval(updateClock, 1000);
-      }
-      
-      const deadline = new Date(Date.parse(new Date()) + 15 * 24 * 60 * 60 * 1000);
-      initializeClock('clockdiv', deadline);
+$(".startClock").click( function(){  
+  var seconds;
+var temp;
+var GivenTime = document.getElementById('countdown').innerHTML
+
+function countdown() {
+  time = document.getElementById('countdown').innerHTML;
+  timeArray = time.split(':')
+  seconds = timeToSeconds(timeArray);
+  if (seconds == '') {
+    temp = document.getElementById('countdown');
+    temp.innerHTML = GivenTime;
+    time = document.getElementById('countdown').innerHTML;
+    timeArray = time.split(':')
+    seconds = timeToSeconds(timeArray);
+  }
+  seconds--;
+  temp = document.getElementById('countdown');
+  temp.innerHTML = secondsToTime(seconds);
+  var timeoutMyOswego = setTimeout(countdown, 1000);
+  // var x = document.getElementById("clockdiv");
+  if (secondsToTime(seconds) == '00:00') {
+    clearTimeout(timeoutMyOswego); //stop timer
+    // x.style.display === "none"
+  }
+}
+
+function timeToSeconds(timeArray) {
+  var minutes = (timeArray[0] * 1);
+  var seconds = (minutes * 60) + (timeArray[1] * 1);
+  return seconds;
+}
+
+function secondsToTime(secs) {
+  var hours = Math.floor(secs / (60 * 60));
+  hours = hours < 10 ? '0' + hours : hours;
+  var divisor_for_minutes = secs % (60 * 60);
+  var minutes = Math.floor(divisor_for_minutes / 60);
+  minutes = minutes < 10 ? '0' + minutes : minutes;
+  var divisor_for_seconds = divisor_for_minutes % 60;
+  var seconds = Math.ceil(divisor_for_seconds);
+  seconds = seconds < 10 ? '0' + seconds : seconds;
+
+  return minutes + ':' + seconds;
+  //hours + ':' + 
+
+}
+countdown();
 });

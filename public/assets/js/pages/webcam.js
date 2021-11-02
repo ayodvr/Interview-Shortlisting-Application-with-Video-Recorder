@@ -10,18 +10,20 @@ var video = document.querySelector('video');
   }
   
   function stopRecordingCallback() {
+    
       video.muted = false;
       video.volume = 1;
   
       video.src = video.srcObject = null;
   
       getSeekableBlob(recorder.getBlob(), function(seekableBlob) {
+       
           video.src = URL.createObjectURL(seekableBlob);
   
           recorder.stream.stop();
-          // recorder.destroy();
-          // recorder = null;
-  
+        //   recorder.destroy();
+        //   recorder = null;
+        
           document.getElementById('btn-start-recording').disabled = true;
   
           //invokeSaveAsDialog(seekableBlob, 'seekable-recordrtc.webm');
@@ -38,53 +40,32 @@ var video = document.querySelector('video');
           });
   
           var formData = new FormData();
-  
+          
           // recorded data
           formData.append('video-blob', fileObject);
-  
+
           // file name
           formData.append('video-filename', fileObject.name);
   
-          document.getElementById('header').innerHTML = 'Uploading to PHP using jQuery.... file size: (' +  bytesToSize(fileObject.size) + ')';
-  
-          var upload_url = "{{ url('/fileupload/store')}}";
-          // var upload_url = 'RecordRTC-to-PHP/save.php';
-  
-        //   var upload_directory = upload_url;
-          // var upload_directory = 'RecordRTC-to-PHP/uploads/';
-  
-          // upload using jQuery
-          $.ajaxSetup({
-              headers: {
-                  'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+          $.ajax({
+            headers:{'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+            url: "/blob-upload",
+            type: 'POST',
+            data: formData,
+            cache: false,
+            contentType: false,
+            processData: false,
+              success: function(data) {
+                  //console.log(data);
+                  if (data === 'success') {
+                      console.log('successfully uploaded recorded blob');
+                  }
               },
-              url: upload_url, // replace with your own server URL
-              data: formData,
-              cache: false,
-              contentType: false,
-              processData: false,
-              method: 'POST',
-              success: function(response) {
-                  console.log(response);
-                  // if (response === 'success') {
-                  //     alert('successfully uploaded recorded blob');
-  
-                  //     // file path on server
-                  //     var fileDownloadURL = upload_directory + fileObject.name;
-  
-                  //     // preview the uploaded file URL
-                  //     document.getElementById('header').innerHTML = '<a href="' + fileDownloadURL + '" target="_blank">' + fileDownloadURL + '</a>';
-  
-                  //     // preview uploaded file in a VIDEO element
-                  //     document.getElementById('your-video-id').srcObject = null;
-                  //     document.getElementById('your-video-id').src = fileDownloadURL;
-  
-                  //     // open uploaded file in a new tab
-                  //     window.open(fileDownloadURL);
-                  // } else {
-                  //     alert(response); // error/failure
-                  // }
-              }
+              error: function (error) {
+               console.log("error uploading ", error)
+             }
+              
+
           });
       });
   }
@@ -139,7 +120,7 @@ var video = document.querySelector('video');
   };
   
   document.getElementById('btn-stop-recording').onclick = function() {
-      this.disabled = true;
+      this.disabled = false;
       recorder.stopRecording(stopRecordingCallback);
   };
   

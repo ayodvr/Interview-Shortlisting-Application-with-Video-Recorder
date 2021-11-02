@@ -14,11 +14,12 @@ use \Illuminate\Support\Facades\URL;
 |
 */
 Route::resource('/interview', 'InterviewController');
-Route::resource('/fileupload', 'FileUploadsController');
+Route::post('/blob-upload', 'FileUploadsController@saveBlob');
 
-Route::get('/details/{id}', 'InterviewController@details')->name('detail');
+Route::get('/details/{id}/{user_id}', 'InterviewController@details')->name('details');
 
 // URL::temporarySignedRoute('detail.show', now()->addSeconds(5));
+Route::get('/interview/{id}/{user_id}', 'InterviewController@show_interview')->name('show.interview');
 
 Route::middleware(['auth'])->group(function () {
 
@@ -47,6 +48,7 @@ Route::get('/users/kill/{id}', 'UserController@kill')->name('users.kill');
 Route::get('/downloadTemplate', 'UserController@downloadCandidateTemplate')->name('candidates.template');
 Route::post('/importTemplate', 'UserController@importTemplate')->name('import_Template');
 Route::get('/downloadTemplate/groups', 'GroupController@downloadGroupTemplate')->name('groups.template');
+Route::get('/groups/kill/{id}', 'GroupController@kill')->name('groups.kill');
 Route::resource('/groups', 'GroupController');
 Route::resource('/candidates', 'CandidateController');
 Route::get('/session_ended', 'InterviewController@session_expire')->name('session_ended');

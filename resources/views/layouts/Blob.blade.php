@@ -2,15 +2,25 @@
 <html lang="en">
 
     <head>
-        <meta name="csrf-token" content="{{ csrf_token() }}">
         <meta charset="utf-8" />
         <title>Hr56 Virtual Interview</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta content="Premium Multipurpose Admin & Dashboard Template" name="description" />
         <meta content="Themesbrand" name="author" />
+
+        <meta charset="utf-8">
+        <meta name="description" content="WebRTC code samples">
+        <meta name="viewport" content="width=device-width, user-scalable=yes, initial-scale=1, maximum-scale=1">
+        <meta itemprop="description" content="Client-side WebRTC code samples">
+        <meta itemprop="name" content="WebRTC code samples">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta id="theme-color" name="theme-color" content="#000">
+        <meta name="csrf-token" content="{{ csrf_token() }}">
+        <base target="_blank">
+
         <!-- App favicon -->
         <link rel="shortcut icon" href="{{asset('assets/images/favicon.ico')}}">
-
+        <link href="//fonts.googleapis.com/css?family=Roboto:300,400,500,700" rel="stylesheet" type="text/css">
         <!-- owl.carousel css -->
         <link rel="stylesheet" href="{{asset('assets/libs/owl.carousel/assets/owl.carousel.min.css')}}">
 
@@ -23,14 +33,13 @@
         <!-- App Css-->
         <link href="{{asset('assets/css/app.min.css')}}" id="app-style" rel="stylesheet" type="text/css" />
         <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/video.js/7.15.4/video-js.min.css" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/videojs-record/4.5.0/css/videojs.record.min.css" rel="stylesheet">
         <style>
             video {
                 width: 820px;
                 height: 480px;
                 border-radius: 5px;
-                border: 1px solid black;       
+                border: 1px solid black;  
+                pointer-events: none;     
         }
 
         #clockdiv{
@@ -45,14 +54,14 @@
         #clockdiv > div{
         padding: 5px;
         border-radius: 3px;
-        background: #990000;
+        background: #0b1225;
         display: inline-block;
         }
 
         #clockdiv div > span{
         padding: 10px;
         border-radius: 3px;
-        background: #ff8080;
+        background: #0b1225;
         display: inline-block;
         }
 
@@ -70,16 +79,15 @@
     <body class="auth-body-bg">
 
 
-        @yield('webcam')
+        @yield('blob')
 
 
 
   <!-- JAVASCRIPT -->
-  <script src="{{asset('assets/js/pages/webcam.js')}}"></script>
   <footer style="margin-top: 20px; text-align: left;">
     <small id="send-message"></small>
 </footer>
-<script src="https://www.webrtc-experiment.com/common.js"></script>
+{{-- <script src="https://www.webrtc-experiment.com/common.js"></script> --}}
   <script src="{{asset('assets/js/pages/pagination.js')}}"></script>
   <script src="{{asset('assets/js/pages/timer.js')}}"></script>
   <script src="{{asset('assets/libs/jquery/jquery.min.js')}}"></script>
@@ -96,11 +104,13 @@
 
   <!-- auth-2-carousel init -->
   <script src="{{asset('assets/js/pages/auth-2-carousel.init.js')}}"></script>
+  <script src="https://webrtc.github.io/adapter/adapter-latest.js"></script>
+  <script src="{{asset('assets/js/index.js')}}" async></script>
+  <script src="{{asset('assets/js/ga.js')}}"></script>
 
   <!-- App js -->
   <script src="{{asset('assets/js/app.js')}}"></script>
-  <script src="https://cdn.WebRTC-Experiment.com/RecordRTC.js"></script>
-  <script src="https://www.webrtc-experiment.com/EBML.js"></script>           <!-- ../libs/DBML.js -->
+          <!-- ../libs/DBML.js -->
   
 
   {{-- <script>

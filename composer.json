@@ -19,6 +19,7 @@
         "livewire/livewire": "^2.6",
         "maatwebsite/excel": "^3.1",
         "ramsey/uuid": "^4.2",
+        "realrashid/sweet-alert": "^4.0",
         "spatie/laravel-permission": "^4.4",
         "spatie/laravel-url-signer": "^2.6"
     },

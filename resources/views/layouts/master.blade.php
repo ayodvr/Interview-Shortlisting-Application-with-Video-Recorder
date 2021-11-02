@@ -7,6 +7,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta content="Premium Multipurpose Admin & Dashboard Template" name="description" />
         <meta content="Themesbrand" name="author" />
+        <meta name="csrf-token" content="{{ csrf_token() }}">
         <!-- App favicon -->
         <link rel="shortcut icon" href="{{asset('assets/images/favicon.ico')}}">
         <link rel="stylesheet" href="{{ asset('/vendor/zusamarehan/tourify/css/hopscotch.css') }}">
@@ -48,6 +49,7 @@
     
        
         <!-- JAVASCRIPT -->
+        @include('sweetalert::alert')
         <script src="{{asset('assets/libs/jquery/jquery.min.js')}}"></script>
         <script src="{{asset('assets/libs/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
         <script src="{{asset('assets/libs/metismenu/metisMenu.min.js')}}"></script>
@@ -99,8 +101,53 @@
  
          <!-- Datatable init js -->
          <script src="{{asset('assets/js/pages/datatables.init.js')}}"></script> 
-
         <!-- App js -->
-        <script src="{{asset('assets/js/app.js')}}"></script> 
+        <script src="{{asset('assets/js/app.js')}}"></script>
+        <script src="{{asset('https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.0/sweetalert.min.js')}}"></script>
+        <script src="{{asset('https://unpkg.com/sweetalert/dist/sweetalert.min.js')}}"></script>
+        <script>
+            $('.destroy-confirm').on('click', function (event) {
+              var name = $(this).data("name");
+              event.preventDefault();
+              const url = $(this).attr('href');
+                swal({
+                    title:  `Are you sure you want to delete ${name}?`,
+                    text: 'This will be permanantly deleted!',
+                    icon: 'warning',
+                    buttons: ["Cancel", "Yes!"],
+                }).then(function(value) {
+                    if (value) {
+                        window.location.href = url;
+                    }
+              });
+        });
+        </script> 
+        <script>
+             $(document).ready(function(){
+            $('#sessionEnded').on('submit', function(){
+                event.preventDefault();
+                console.log("i got here")
+                $.ajax({
+                    url: "{{ url('/blog-upload') }}",
+                    method: 'POST',
+                    data: formData,
+                    cache: false,
+                    contentType: false,
+                    processData: false,
+                      success: function(response) {
+                          console.log(response);
+                          if (response === 'success') {
+                              alert('successfully uploaded recorded blob');
+                          } else {
+                              console.log('upload failed');
+                          }
+                      },
+                      error: function (error) {
+                       console.log("error uploadig ", error)
+                     }
+                });
+             });
+          });
+        </script>
     </body>
 </html>
