@@ -89,7 +89,8 @@
 </footer>
 {{-- <script src="https://www.webrtc-experiment.com/common.js"></script> --}}
   <script src="{{asset('assets/js/pages/pagination.js')}}"></script>
-  <script src="{{asset('assets/js/pages/timer.js')}}"></script>
+  <script src="{{asset('assets/js/index.js')}}" async></script>
+  {{-- <script src="{{asset('assets/js/pages/timer.js')}}"></script> --}}
   <script src="{{asset('assets/libs/jquery/jquery.min.js')}}"></script>
   <script src="{{asset('assets/libs/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
   <script src="{{asset('assets/libs/metismenu/metisMenu.min.js')}}"></script>
@@ -105,7 +106,6 @@
   <!-- auth-2-carousel init -->
   <script src="{{asset('assets/js/pages/auth-2-carousel.init.js')}}"></script>
   <script src="https://webrtc.github.io/adapter/adapter-latest.js"></script>
-  <script src="{{asset('assets/js/index.js')}}" async></script>
   <script src="{{asset('assets/js/ga.js')}}"></script>
 
   <!-- App js -->

@@ -1,6 +1,6 @@
 <div class="mb-4 mb-md-5">
     <div id="text" class="tag_container">
-        <h2 class="text-primary">Interview Questions</h2>
+        {{-- <h2 class="text-primary">Interview Questions</h2> --}}
         <p class="text-muted">Answer all the questions below by clicking the record button to activate your webcam and then press.</p>
         <br><br>
         @foreach($questions as $data)

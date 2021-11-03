@@ -15,9 +15,8 @@ class CreateFileUploadsTable extends Migration
     {
         Schema::create('file_uploads', function (Blueprint $table) {
             $table->id();
-            $table->string('file');
-            $table->integer('group_id');
-            $table->integer('user_id');
+            $table->string('video-filename');
+            $table->integer('cand_id');
             $table->integer('interview_id');
             $table->timestamp("automatically_delete_at");
             $table->timestamps();

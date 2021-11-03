@@ -79,7 +79,7 @@
                     <div class="col-lg-5">
                         <div class="text-white-50">
                             <h1 class="text-white fw-semibold mb-3 hero-title">Virtual Interview Session</h1>
-                            <p class="font-size-14">{{ $interview->instruction}}</p>
+                            <p class="font-size-14">{{ $interview['instruction']}}</p>
                             <div class="button-items mt-4">
                                 <a href="{{route('show.interview', [$id, $user_id])}}" class="btn btn-success">Proceed to interview</a>
                                 {{-- <a href="javascript: void(0);" class="btn btn-light">How it work</a> --}}

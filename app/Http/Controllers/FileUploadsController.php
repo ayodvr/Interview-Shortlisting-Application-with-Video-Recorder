@@ -9,21 +9,25 @@ class FileUploadsController extends Controller
 {
     public function saveBlob(Request $request)
     {
-        dd($request->file);
+        dd($request->all());
         
         $data=$request->validate([
-
             'interview_id'=>'required',
-            'user_id'=>'required',
-            'file' => 'mimes:webm|max:800000',
+            'cand_id'=>'required',
+            'video-filename' => 'mimes:mp4,mov,ogg,webm,qt|max:800000'
         ]);
 
-        if ($request->has('file')) {
-            $name = Str::random(4).time().$request->file('video')->getClientOriginalName();
-            $destination = public_path().'/LessonUploads';
-            $path='/LessonUploads/'.$name;
-            $request->file('video')->move($destination, $name);
-            $data['video'] =$path;
+        if ($request->has('video-filename')) {
+            $name = Str::random(4).time().$request->file('video-filename')->getClientOriginalName();
+            $destination = public_path().'/InterviewSessions';
+            $path='/InterviewSessions/'.$name;
+            $request->file('video-filename')->move($destination, $name);
+            $data['video-filename'] =$path;
+        }
+
+        if(FileUploads::create($data)){
+
+            return response()->json(['success_info' => 'Your entry was recieved']);
         }
     }
 }

@@ -32,7 +32,7 @@
                         data-placement="top" title="Enable Camera" --}}
                         <button id="start" class="btn btn-dark" hidden>Record</button>
 
-                        <button  id="record" class="btn btn-dark startClock">Start</button>
+                        <button  id="record" data-toggle="tooltip" data-placement="top" title="Start your session" class="btn btn-dark">Start</button>
                         <button style="float: right" id="button-speak" data-toggle="tooltip" data-placement="top" title="Press to listen" class="btn btn-dark mb-3" style="border-radius:40px"><i class="fas fa-microphone-alt"></i></button>
 
                         {{-- <button id="play" disabled>Play</button> --}}
@@ -66,7 +66,7 @@
                             <div class="mb-4 mb-md-5">
                                 <div class="tag_container">
                                     @include('interviews.questions')
-                                    <button id="save" style="margin-left:150px;" class="btn btn-dark">Submit</button>
+                                    <button id="save" style="margin-left:150px;" data-toggle="tooltip" data-placement="top" title="Click to submit" class="btn btn-dark">Finish</button>
                                 </div>
                             </div>
                         </div> 
@@ -80,7 +80,7 @@
 </div>
 @endsection
 <script>
-window.onload = function(){
+    window.onload = function(){
    document.getElementById('start').click();
  }
-</script>
+ </script>

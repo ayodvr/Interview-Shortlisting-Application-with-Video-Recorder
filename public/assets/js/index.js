@@ -32,7 +32,7 @@ recordButton.addEventListener('click', () => {
     codecPreferences.disabled = false;
   }
 });
- 
+
 
 // const playButton = document.querySelector('button#play');
 // playButton.addEventListener('click', () => {
@@ -61,6 +61,7 @@ recordButton.addEventListener('click', () => {
 //   }, 100);
 // });
 
+
 const submitButton = document.querySelector('button#save');
 submitButton.addEventListener('click', () => {
   const blob = new Blob(recordedBlobs, {type: 'video/webm'});
@@ -82,18 +83,22 @@ submitButton.addEventListener('click', () => {
         contentType: false,
         processData: false,
           success: function(data) {
-              //console.log(data);
               if (data === 'success') {
-                  alert('successfully uploaded recorded blob');
+                  console.log('successfully uploaded recorded blob');
+                //   $('.alert-success').show();
+                //   $('.alert-success').html(data.success_info).delay(10000).fadeOut();
               } 
           },
-          error: function (error) {
-           console.log("error uploading ", error)
-         }
-          
-
+        //   error: function (request, status, error) {
+        //     json = $.parseJSON(request.responseText);
+        //     $.each(json.errors, function(key, value){
+        //         $('.alert-danger').show();
+        //         $('.alert-danger').append('<h6>'+value+'</h6>').delay(10000).fadeOut();
+        //     });
+        //  }
       });
 });
+
 
 function handleDataAvailable(event) {
   console.log('handleDataAvailable', event);
@@ -115,6 +120,8 @@ function getSupportedMimeTypes() {
 }
 
 function startRecording() {
+
+  triggerTime();
   recordedBlobs = [];
   const mimeType = codecPreferences.options[codecPreferences.selectedIndex].value;
   const options = {mimeType};
@@ -143,6 +150,7 @@ function startRecording() {
 
 function stopRecording() {
   mediaRecorder.stop();
+  clearTimeout(timeoutMyOswego);
 }
 
 function handleSuccess(stream) {
@@ -187,3 +195,56 @@ document.querySelector('button#start').addEventListener('click', async () => {
   await init(constraints);
 });
 
+function triggerTime() { 
+
+  var seconds;
+  var temp;
+  var GivenTime = document.getElementById('countdown').innerHTML
+  
+  function countdown() {
+   var time = document.getElementById('countdown').innerHTML;
+   var timeArray = time.split(':')
+    seconds = timeToSeconds(timeArray);
+    if (seconds == '') {
+      temp = document.getElementById('countdown');
+      temp.innerHTML = GivenTime;
+      time = document.getElementById('countdown').innerHTML;
+      timeArray = time.split(':')
+      seconds = timeToSeconds(timeArray);
+    }
+    seconds--;
+    temp = document.getElementById('countdown');
+    temp.innerHTML = secondsToTime(seconds);
+    globalThis.timeoutMyOswego = setTimeout(countdown, 1000);
+    // var x = document.getElementById("clockdiv");
+    if (secondsToTime(seconds) == '00:00') {
+      clearTimeout(timeoutMyOswego);
+        stopRecording();
+        recordButton.disabled = true;
+        submitButton.disabled = false;
+    }
+  }
+  
+  function timeToSeconds(timeArray) {
+    var minutes = (timeArray[0] * 1);
+    var seconds = (minutes * 60) + (timeArray[1] * 1);
+    return seconds;
+  }
+  
+  function secondsToTime(secs) {
+    var hours = Math.floor(secs / (60 * 60));
+    hours = hours < 10 ? '0' + hours : hours;
+    var divisor_for_minutes = secs % (60 * 60);
+    var minutes = Math.floor(divisor_for_minutes / 60);
+    minutes = minutes < 10 ? '0' + minutes : minutes;
+    var divisor_for_seconds = divisor_for_minutes % 60;
+    var seconds = Math.ceil(divisor_for_seconds);
+    seconds = seconds < 10 ? '0' + seconds : seconds;
+  
+    return minutes + ':' + seconds;
+    //hours + ':' + 
+  
+  }
+  countdown();
+
+  };
