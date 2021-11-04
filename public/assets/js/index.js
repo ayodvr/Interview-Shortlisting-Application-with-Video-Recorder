@@ -66,12 +66,16 @@ const submitButton = document.querySelector('button#save');
 submitButton.addEventListener('click', () => {
   const blob = new Blob(recordedBlobs, {type: 'video/webm'});
 //   const url = window.URL.createObjectURL(blob);
-  var fileType = 'video'; // or "audio"
-  var fileName = 'virtualSession.webm';  // or "wav"
-  var cand_id = '<?=$cand_id?>';
+
+    var fileName = 'session.webm';  // or "wav"
+    var fileObject = new File([blob], fileName, {
+        type: 'video/webm'
+    });
+
     var formData = new FormData();
-    formData.append(fileType + '-filename', fileName);
-    formData.append(fileType + '-blob', blob);
+
+    formData.append('video-blob', fileObject);
+    formData.append('video-filename', fileObject.name);
     formData.append('candidate_id', cand_id);
 
     $.ajax({
@@ -85,17 +89,17 @@ submitButton.addEventListener('click', () => {
           success: function(data) {
               if (data === 'success') {
                   console.log('successfully uploaded recorded blob');
-                //   $('.alert-success').show();
-                //   $('.alert-success').html(data.success_info).delay(10000).fadeOut();
+                  $('.alert-success').show();
+                  $('.alert-success').html(data.success_info);
               } 
           },
-        //   error: function (request, status, error) {
-        //     json = $.parseJSON(request.responseText);
-        //     $.each(json.errors, function(key, value){
-        //         $('.alert-danger').show();
-        //         $('.alert-danger').append('<h6>'+value+'</h6>').delay(10000).fadeOut();
-        //     });
-        //  }
+          error: function (request, status, error) {
+            var json = $.parseJSON(request.responseText);
+            $.each(json.errors, function(key, value){
+                $('.alert-danger').show();
+                $('.alert-danger').append('<h6>'+value+'</h6>').delay(10000).fadeOut();
+            });
+         }
       });
 });
 

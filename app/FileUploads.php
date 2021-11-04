@@ -8,7 +8,7 @@ class FileUploads extends Model
 {
     
     protected $fillable = [
-        'file', 'group_id', 'user_id', 'interview_id'
+        'video-filename','cand_id', 'interview_id','file'
     ];
 
     public function groups(){

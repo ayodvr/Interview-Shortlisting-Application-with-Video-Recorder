@@ -54,14 +54,14 @@
         #clockdiv > div{
         padding: 5px;
         border-radius: 3px;
-        background: #0b1225;
+        background: #f00707;
         display: inline-block;
         }
 
         #clockdiv div > span{
         padding: 10px;
         border-radius: 3px;
-        background: #0b1225;
+        background: #832f2f;
         display: inline-block;
         }
 
@@ -89,6 +89,9 @@
 </footer>
 {{-- <script src="https://www.webrtc-experiment.com/common.js"></script> --}}
   <script src="{{asset('assets/js/pages/pagination.js')}}"></script>
+  <script type="text/javascript">
+    var cand_id = '<?= $cand_id ?>';
+ </script>
   <script src="{{asset('assets/js/index.js')}}" async></script>
   {{-- <script src="{{asset('assets/js/pages/timer.js')}}"></script> --}}
   <script src="{{asset('assets/libs/jquery/jquery.min.js')}}"></script>

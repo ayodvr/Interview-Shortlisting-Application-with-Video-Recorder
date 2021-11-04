@@ -11,14 +11,15 @@ class CreateFileUploadsTable extends Migration
      *
      * @return void
      */
+
+     // $table->string('file')->nullable();
     public function up()
     {
         Schema::create('file_uploads', function (Blueprint $table) {
             $table->id();
-            $table->string('video-filename');
-            $table->integer('cand_id');
-            $table->integer('interview_id');
-            $table->timestamp("automatically_delete_at");
+            $table->string('video-blob');
+            $table->integer('candidate_id');
+            $table->integer('interview_id')->nullable();
             $table->timestamps();
         });
     }

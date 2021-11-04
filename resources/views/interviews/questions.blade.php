@@ -33,11 +33,11 @@
           .join('');
     }
 
-    function logEvent(string) {
-       var log = document.getElementById('log');
+   //  function logEvent(string) {
+   //     var log = document.getElementById('log');
 
-       log.innerHTML = string + '<br />' + log.innerHTML;
-    }
+   //     log.innerHTML = string + '<br />' + log.innerHTML;
+   //  }
 
     if (!('SpeechSynthesisUtterance' in window)) {
        document.querySelector('.js-api-support').removeAttribute('hidden');

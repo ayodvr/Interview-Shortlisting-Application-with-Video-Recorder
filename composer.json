@@ -12,6 +12,7 @@
         "appslabke/lara-izitoast": "^1.1",
         "fideloper/proxy": "^4.4",
         "fruitcake/laravel-cors": "^2.0",
+        "google/cloud-speech": "^1.4",
         "guzzlehttp/guzzle": "^6.3.1|^7.0.1",
         "laravel/framework": "^7.29",
         "laravel/tinker": "^2.5",
