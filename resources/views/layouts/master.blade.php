@@ -99,55 +99,13 @@
          <script src="{{asset('assets/libs/datatables.net-responsive/js/dataTables.responsive.min.js')}}"></script>
          <script src="{{asset('assets/libs/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js')}}"></script>
  
+         <script src="{{asset('assets/js/pages/materialdesign.init.js')}}"></script>
+
          <!-- Datatable init js -->
          <script src="{{asset('assets/js/pages/datatables.init.js')}}"></script> 
         <!-- App js -->
         <script src="{{asset('assets/js/app.js')}}"></script>
         <script src="{{asset('https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.0/sweetalert.min.js')}}"></script>
-        <script src="{{asset('https://unpkg.com/sweetalert/dist/sweetalert.min.js')}}"></script>
-        <script>
-            $('.destroy-confirm').on('click', function (event) {
-              var name = $(this).data("name");
-              event.preventDefault();
-              const url = $(this).attr('href');
-                swal({
-                    title:  `Are you sure you want to delete ${name}?`,
-                    text: 'This will be permanantly deleted!',
-                    icon: 'warning',
-                    buttons: ["Cancel", "Yes!"],
-                }).then(function(value) {
-                    if (value) {
-                        window.location.href = url;
-                    }
-              });
-        });
-        </script> 
-        <script>
-             $(document).ready(function(){
-            $('#sessionEnded').on('submit', function(){
-                event.preventDefault();
-                console.log("i got here")
-                $.ajax({
-                    url: "{{ url('/blog-upload') }}",
-                    method: 'POST',
-                    data: formData,
-                    cache: false,
-                    contentType: false,
-                    processData: false,
-                      success: function(response) {
-                          console.log(response);
-                          if (response === 'success') {
-                              alert('successfully uploaded recorded blob');
-                          } else {
-                              console.log('upload failed');
-                          }
-                      },
-                      error: function (error) {
-                       console.log("error uploadig ", error)
-                     }
-                });
-             });
-          });
-        </script>
+        <script src="{{asset('https://unpkg.com/sweetalert/dist/sweetalert.min.js')}}"></script> 
     </body>
 </html>

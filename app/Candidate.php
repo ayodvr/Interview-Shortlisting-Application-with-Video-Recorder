@@ -8,14 +8,14 @@ class Candidate extends Model
 {
     
     protected $fillable = [
-        'name', 'email','image','uuid','phone','group_id'
+        'name', 'email','image','uuid','phone','group_id','user_id'
     ];
 
     public function groups(){
-        return $this->belongsTo('App\Group');
+        return $this->belongTo('App\Group');
     }
 
     public function users(){
-        return $this->hasMany('App\User');
+        return $this->belongsTo('App\User');
     }
 }

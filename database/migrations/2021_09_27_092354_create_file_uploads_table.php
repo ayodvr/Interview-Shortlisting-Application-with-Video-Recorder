@@ -17,9 +17,10 @@ class CreateFileUploadsTable extends Migration
     {
         Schema::create('file_uploads', function (Blueprint $table) {
             $table->id();
-            $table->string('video-blob');
+            $table->string('video_blob');
             $table->integer('candidate_id');
-            $table->integer('interview_id')->nullable();
+            $table->integer('interview_id');
+            // $table->integer('group_id');
             $table->timestamps();
         });
     }

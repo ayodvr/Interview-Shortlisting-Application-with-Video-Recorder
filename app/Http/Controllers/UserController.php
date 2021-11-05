@@ -29,6 +29,21 @@ class UserController extends Controller
         return view('users.index')->with('users', $users);
     }
 
+    public function dashboard()
+    {
+        $auth = auth()->user()->id;
+        $clients = User::role('client')->count();
+        $candidates = Candidate::where('user_id', $auth)->count();
+        $cand_count = Candidate::all()->count();
+        $groups = Group::where('user_id', $auth)->count();
+        $adgroups = Group::all()->count();
+        return view('index')->with('clients', $clients)
+                                  ->with('candidates', $candidates)
+                                  ->with('groups', $groups)
+                                  ->with('adgroups', $adgroups)
+                                  ->with('cand_count', $cand_count);
+    }
+
     public function realUniqId()
     { 
         $myuuid = uniqid();
@@ -57,6 +72,7 @@ class UserController extends Controller
         $groups = Group::all();
         $roles = Role::where('name', '!=', 'admin')->get();
         //dd($roles);
+
         return view('users.create')->with('roles',$roles)
                                     ->with('groups',$groups);
     }
@@ -155,8 +171,10 @@ class UserController extends Controller
     {
         $user = User::find($id);
         $roles = Role::where('name', '!=', 'admin')->get();
+        $groups = Group::all();
         return view('users.edit')->with('user',$user)
-                                    ->with('roles',$roles);
+                                    ->with('roles',$roles)
+                                    ->with('groups', $groups);
     }
 
     /**

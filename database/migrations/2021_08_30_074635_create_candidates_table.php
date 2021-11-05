@@ -15,7 +15,9 @@ class CreateCandidatesTable extends Migration
     {
         Schema::create('candidates', function (Blueprint $table) {
             $table->id();
+            $table->string('uuid');
             $table->string('name');
+            $table->string('user_id');
             $table->string('image')->nullable();
             $table->string('email')->unique();
             $table->string('phone');

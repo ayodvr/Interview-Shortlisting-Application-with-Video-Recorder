@@ -6,10 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class FileUploads extends Model
 {
-    
-    protected $fillable = [
-        'video-filename','cand_id', 'interview_id','file'
-    ];
 
     public function groups(){
         return $this->hasMany('App\Group');

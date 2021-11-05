@@ -25,7 +25,7 @@
                                         <div class="d-flex">
                                             <div class="flex-grow-1">
                                                 <p class="text-muted fw-medium">Clients</p>
-                                                <h4 class="mb-0">5</h4>
+                                                <h4 class="mb-0">{{$clients}}</h4>
                                             </div>
 
                                             <div class="flex-shrink-0 align-self-center">
@@ -45,7 +45,7 @@
                                         <div class="d-flex">
                                             <div class="flex-grow-1">
                                                 <p class="text-muted fw-medium">Groups</p>
-                                                <h4 class="mb-0">7</h4>
+                                                <h4 class="mb-0">{{$adgroups}}</h4>
                                             </div>
 
                                             <div class="flex-shrink-0 align-self-center ">
@@ -65,7 +65,7 @@
                                         <div class="d-flex">
                                             <div class="flex-grow-1">
                                                 <p class="text-muted fw-medium">Candidates</p>
-                                                <h4 class="mb-0">4</h4>
+                                                <h4 class="mb-0">{{$cand_count}}</h4>
                                             </div>
 
                                             <div class="flex-shrink-0 align-self-center">
@@ -97,7 +97,7 @@
                                         <div class="d-flex">
                                             <div class="flex-grow-1">
                                                 <p class="text-muted fw-medium">Groups</p>
-                                                <h4 class="mb-0">7</h4>
+                                                <h4 class="mb-0">{{$groups}}</h4>
                                             </div>
 
                                             <div class="flex-shrink-0 align-self-center ">
@@ -117,7 +117,7 @@
                                         <div class="d-flex">
                                             <div class="flex-grow-1">
                                                 <p class="text-muted fw-medium">Candidates</p>
-                                                <h4 class="mb-0">4</h4>
+                                                <h4 class="mb-0">{{$candidates}}</h4>
                                             </div>
 
                                             <div class="flex-shrink-0 align-self-center">

@@ -50,4 +50,8 @@ class User extends Authenticatable
     public function fileuploads(){
         return $this->belongsTo('App\FileUploads');
     }
+
+    public function candidates(){
+        return $this->hasMany('App\Candidate');
+    }
 }

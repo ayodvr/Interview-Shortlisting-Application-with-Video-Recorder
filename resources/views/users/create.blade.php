@@ -202,7 +202,7 @@
                                         </div>
                                     </div>
                                     <div class="text-center">
-                                        <button type="submit" class="btn btn-primary w-md">Submit</button>
+                                        <button type="submit" class="btn btn-primary w-md">Create</button>
                                     </div>
                                 </form>
                             </div>

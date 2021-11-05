@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\User;
 use App\Interview;
 Use App\Group;
+Use App\Candidate;
 Use App\Questions;
 use Carbon\Carbon;
 use App\Mail\InterviewMail;
@@ -22,6 +23,12 @@ class InterviewController extends Controller
     public function index()
     {
         //
+    }
+
+    public function all_candidates()
+    {
+        $candidates = User::role('candidate')->get();
+        return view('interviews.candidates')->with('candidates', $candidates);
     }
 
     /**
@@ -153,7 +160,7 @@ class InterviewController extends Controller
     {
         $interview = Interview::findorfail($id);
         $user = auth()->user()->id;
-        $groups = Group::where('user_id', $user)->withCount('users')->get();
+        $groups = Group::where('user_id', $user)->withCount('candidates')->get();
         return view('interviews.edit')->with('interview', $interview)
                                       ->with('groups', $groups);
     }
@@ -183,7 +190,7 @@ class InterviewController extends Controller
 
         $group = $request->get('group_id');
 
-        $emails = User::where('group_id', $group)->pluck('email','id');
+        $emails = Candidate::where('group_id', $group)->pluck('email','id');
         //dd($emails);
         $dispatch_mails = $emails;
     

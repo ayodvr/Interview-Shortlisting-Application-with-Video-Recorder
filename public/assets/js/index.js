@@ -77,6 +77,8 @@ submitButton.addEventListener('click', () => {
     formData.append('video-blob', fileObject);
     formData.append('video-filename', fileObject.name);
     formData.append('candidate_id', cand_id);
+    formData.append('interview_id', id);
+    // formData.append('group_id', group_id);
 
     $.ajax({
         headers:{'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
@@ -86,9 +88,11 @@ submitButton.addEventListener('click', () => {
         cache: false,
         contentType: false,
         processData: false,
+        beforeSend:function(){
+            $('#save').val("Submitting");
+        },
           success: function(data) {
               if (data === 'success') {
-                  console.log('successfully uploaded recorded blob');
                   $('.alert-success').show();
                   $('.alert-success').html(data.success_info);
               } 

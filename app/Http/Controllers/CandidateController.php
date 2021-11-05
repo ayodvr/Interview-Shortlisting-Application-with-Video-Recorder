@@ -20,7 +20,15 @@ class CandidateController extends Controller
      */
     public function index()
     {
-        $candidates = User::orderBy('created_at', 'desc')->get();
+        $candidates = Candidate::orderBy('created_at', 'desc')->get();
+        return view('candidates.index')->with('candidates', $candidates);
+    }
+
+    public function adminCands()
+    {
+        $auth = auth()->user()->id;
+        $candidates = Candidate::where('user_id', $auth)->get();
+        //dd($candidates);
         return view('candidates.index')->with('candidates', $candidates);
     }
 
@@ -44,7 +52,9 @@ class CandidateController extends Controller
     public function create()
     {
         $groups = Group::all();
-        return view('candidates.create')->with('groups',$groups);
+        $roles = Role::where('name', '=', 'candidate')->get();
+        return view('candidates.create')->with('groups',$groups)
+                                         ->with('roles', $roles);
     }
 
     public function upload()
@@ -64,26 +74,24 @@ class CandidateController extends Controller
         $this->validate($request,[
             'name' => 'required',
             'email' => 'required',
+            // 'role'  => 'required',
             'phone' => 'required',
             'image' => 'nullable',
-            // 'role' => 'required',
             'group_id' => ['required', 'numeric']
         ]);
-
-        // $password = Str::random(6);
-
-        //dd($request->all());
+        
         $data = [
             'name'=> $request->get('name'),
+            'user_id'=> auth()->user()->id,
             'email'=> $request->get('email'),
             'phone'=> $request->get('phone'),
             'image'=> $request->get('image'),
-            // 'role'=> $request->get('role'),
-            // 'password'=> Hash::make($password),
             'uuid'=> $this->realUniqId(),
             'group_id' => $request['group_id']
 
         ];
+
+        //dd($data);
 
         if ($request->has('image')) {
             $name = time().$request->file('image')->getClientOriginalName();
@@ -97,9 +105,6 @@ class CandidateController extends Controller
 
         $result = Candidate::create($data);
 
-        // $result->assignRole('candidate');
-
-    
         return redirect()->back()->with('success','Candidate created successfully');
 
         // if(User::create($data)){
@@ -138,7 +143,10 @@ class CandidateController extends Controller
      */
     public function edit($id)
     {
-        //
+        $candidate = Candidate::find($id);
+        $groups = Group::all();
+        return view('candidates.edit')->with('candidate', $candidate)
+                                            ->with('groups', $groups);
     }
 
     /**
@@ -150,7 +158,13 @@ class CandidateController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $data = $request->except(['_method','_token']);
+
+        $candidate = Candidate::find($id);
+
+        $candidate->update($data);
+
+        return redirect()->route('candidates.index')->with('success','Candidate updated successfully');
     }
 
     /**
@@ -159,6 +173,16 @@ class CandidateController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+
+    public function kill($id)
+    {
+        $candidate = Candidate::findorfail($id);
+
+        $candidate->delete();
+
+        return redirect()->back()->withSuccess('Candidate Deleted!');
+    }
+
     public function destroy($id)
     {
         //

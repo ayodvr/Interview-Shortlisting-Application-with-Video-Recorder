@@ -22,7 +22,8 @@
         "ramsey/uuid": "^4.2",
         "realrashid/sweet-alert": "^4.0",
         "spatie/laravel-permission": "^4.4",
-        "spatie/laravel-url-signer": "^2.6"
+        "spatie/laravel-url-signer": "^2.6",
+        "twilio/sdk": "^6.31"
     },
     "require-dev": {
         "facade/ignition": "^2.0",

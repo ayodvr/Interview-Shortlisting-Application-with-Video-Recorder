@@ -14,8 +14,11 @@
                 {{-- </div> --}}
 
                 <?php
-                    $cand_id = $interview["newuser_id"];
+                    $cand_id  = $interview["newuser_id"];
+                    $id       = $interview["id"];
+                    // $group_id = $interview["group_id"];
                 ?>
+
 <div>
     <div class="container-fluid p-0">
         <div class="row g-0">
@@ -38,7 +41,7 @@
                         {{-- <button id="play" disabled>Play</button> --}}
                         <div>
                             {{-- Recording format: --}}
-                         <select id="codecPreferences" disabled hidden></select>
+                        <select id="codecPreferences" disabled hidden></select>
                         </div>
                         <div>
                             {{-- <h4>Media Stream Constraints options</h4> --}}
@@ -56,8 +59,8 @@
                     <div class="d-flex justify-content-center">
                         <div id="clockdiv" style="text-align: center">
                             <div>
-                              <span id="countdown" >00 : 10</span>
-                              {{-- <div class="smalltext">Seconds</div> --}}
+                            <span id="countdown" >00 : 10</span>
+                            {{-- <div class="smalltext">Seconds</div> --}}
                             </div>
                         </div>
                     </div>
@@ -66,7 +69,15 @@
                             <div class="mb-4 mb-md-5">
                                 <div class="tag_container">
                                     @include('interviews.questions')
-                                    <button id="save" style="margin-left:150px;" data-toggle="tooltip" data-placement="top" title="Click to submit" class="btn btn-dark">Finish</button>
+                                    <div class="alert alert-success" style="display:none"></div>
+                                    <div class="alert alert-danger" style="display:none">
+                                        <ul>
+                                            @foreach ($errors->all() as $error)
+                                                <li>{{ $error }}</li>
+                                            @endforeach
+                                        </ul>
+                                    </div>
+                                    <button id="save" style="margin-left:150px;" data-toggle="tooltip" data-placement="top" title="Click to submit" class="btn btn-dark insert">Finish</button>
                                 </div>
                             </div>
                         </div> 

@@ -50,7 +50,7 @@
                                             <div class="mb-3">
                                             <label for="formrow-firstname-input" class="form-label">First name</label>
                                             <input type="text" class="form-control" name="name" id="formrow-firstname-input">
-                                        </div>
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="row">

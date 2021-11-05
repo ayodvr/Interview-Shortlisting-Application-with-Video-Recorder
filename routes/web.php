@@ -35,15 +35,14 @@ Route::get('/all_sessions', function () {
     return view('entries/all_records');
 });
 
-Route::get('/index', function () {
-    return view('index');
-});
 
 Route::get('/interview', function () {
     return view('Batchs/interview_batch');
 });
 
+Route::get('/all_sessions', 'FileUploadsController@all_entries')->name('all_entries');
 Route::resource('/users', 'UserController');
+Route::get('/index', 'UserController@dashboard')->name('users.dashboard');
 Route::get('/users/kill/{id}', 'UserController@kill')->name('users.kill');
 Route::get('/downloadTemplate', 'UserController@downloadCandidateTemplate')->name('candidates.template');
 Route::post('/importTemplate', 'UserController@importTemplate')->name('import_Template');
@@ -51,11 +50,15 @@ Route::get('/downloadTemplate/groups', 'GroupController@downloadGroupTemplate')-
 Route::get('/groups/kill/{id}', 'GroupController@kill')->name('groups.kill');
 Route::resource('/groups', 'GroupController');
 Route::resource('/candidates', 'CandidateController');
+Route::get('/admin/candidates/', 'CandidateController@adminCands')->name('adminCands');
+Route::get('/candidates/kill/{id}', 'CandidateController@kill')->name('candidates.kill');
 Route::get('/session_ended', 'InterviewController@session_expire')->name('session_ended');
+Route::get('/all_candidates/interviews', 'InterviewController@all_candidates')->name('all_candidates');
 Route::get('/live-video', 'InterviewController@interviewVideo')->name('interviewVideo');
 Route::get('/send-video-links', 'InterviewController@send_links')->name('sendLinks');
 Route::get('/upload', 'UserController@upload')->name('candidates.upload');
 Route::get('/upload/groups', 'GroupController@upload')->name('groups.upload');
+Route::get('/clients/groups', 'GroupController@clients_grp')->name('groups.clients');
 Route::post('/importTemplate/groups', 'GroupController@importTemplate')->name('importTemplate');
 Route::get('/groups/all/{group?}',"GroupController@group_users")->name("groups.group_index");
 });

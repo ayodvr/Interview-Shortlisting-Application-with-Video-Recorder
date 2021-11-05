@@ -11,7 +11,7 @@
             <div class="row">
                 <div class="col-12">
                     <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                        <h4 class="mb-sm-0 font-size-18">All Users</h4>
+                        <h4 class="mb-sm-0 font-size-18">All Candidates</h4>
                     </div>
                     @if(count($errors) > 0)
                             @foreach($errors->all() as $error)
@@ -31,110 +31,6 @@
                 </div>
             </div>
             <!-- end page title -->
-            @if (!is_null(auth()->user()) && auth()->user()->hasanyRole('client'))
-            <div class="row">
-                <div class="col-12">
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="row mb-2">
-                                <div class="col-sm-4">
-                                    <div class="search-box me-2 mb-2 d-inline-block">
-                                        <div class="position-relative">
-                                            {{-- <input type="text" class="form-control" placeholder="Search...">
-                                            <i class="bx bx-search-alt search-icon"></i> --}}
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-sm-8">
-                                    <div class="text-sm-end">
-                                        <a href="{{route('users.create')}}" class="btn btn-success btn-rounded waves-effect waves-light mb-2 me-2"><i class="mdi mdi-plus me-1"></i>Add User</a>
-                                    </div>
-                                </div><!-- end col-->
-                            </div>
-    
-                            <div class="table-responsive">
-                                <table id="datatable" class="table table-bordered dt-responsive  nowrap w-100 table-check">
-                                    <thead class="table-light">
-                                        <tr>
-                                            <th style="width: 20px;" class="align-middle">
-                                                <div class="form-check font-size-16">
-                                                    <input class="form-check-input" type="checkbox" id="checkAll">
-                                                    <label class="form-check-label" for="checkAll"></label>
-                                                </div>
-                                            </th>
-                                            <th class="align-middle">UUID</th>
-                                            <th class="align-middle">Name</th>
-                                            {{-- <th class="align-middle">Email</th> --}}
-                                            <th class="align-middle">Role</th>
-                                            <th class="align-middle">Phone</th>
-                                            <th class="align-middle">Date</th>
-                                            {{-- <th class="align-middle">View Details</th> --}}
-                                            <th class="align-middle">Action</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @if(!empty($users))
-                                        @foreach($users as $user)
-                                        @if ($user['name'] == 'admin') 
-                                        @continue
-                                        @endif
-                                        <tr>
-                                            <td>
-                                                <div class="form-check font-size-16">
-                                                    <input class="form-check-input" type="checkbox" id="orderidcheck01">
-                                                    <label class="form-check-label" for="orderidcheck01"></label>
-                                                </div>
-                                            </td>
-                                            <td><a href="javascript: void(0);" class="text-body fw-bold">#{{$user->uuid}}</a> </td>
-                                            <td>{{$user->name}}</td>
-                                            {{-- <td>
-                                                {{$user->email}}
-                                            </td> --}}
-                                            @if(!empty($user->getRoleNames()))
-                                            @foreach($user->getRoleNames() as $v)
-                                            @if($v == 'candidate')
-                                            <td>
-                                                <span class="badge rounded-pill bg-success font-size-12">{{ $v }}</span>
-                                            </td>
-                                            @elseif ( $v == 'client')
-                                            <td>
-                                                <span class="badge rounded-pill bg-warning font-size-12">{{ $v }}</span>
-                                            </td>
-                                            @endif
-                                            @endforeach
-                                            @endif
-                                            <td>
-                                                {{$user->phone}}
-                                            </td>
-                                            <td>
-                                                {{$user['created_at']->diffForHumans()}}
-                                            </td> 
-                                            {{-- <td>
-                                                <!-- Button trigger modal -->
-                                                <button type="button" class="btn btn-primary btn-sm btn-rounded" data-bs-toggle="modal" data-bs-target=".orderdetailsModal">
-                                                    View Details
-                                                </button>
-                                            </td> --}}
-                                            <td>
-                                                <div class="d-flex gap-3">
-                                                    <a href="{{route('users.edit', $user->id)}}" class="text-success"><i class="mdi mdi-pencil font-size-18"></i></a>
-                                                    <a href="{{route('users.kill', $user->id)}}" class="text-danger delete-confirm" data-name ="{{ $user->name }}">
-                                                        <i class="mdi mdi-delete font-size-18"></i></a>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        @endforeach
-                                        @endif
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            @endif
-
-            @if (!is_null(auth()->user()) && auth()->user()->hasanyRole('admin'))
             <div class="row">
                 <div class="col-12">
                     <div class="card">
@@ -150,7 +46,8 @@
                                 </div>
                                 <div class="col-sm-8">
                                     <div class="text-sm-end">
-                                        <a href="{{route('users.create')}}" class="btn btn-success btn-rounded waves-effect waves-light mb-2 me-2"><i class="mdi mdi-plus me-1"></i>Add User</a>
+                                        <a href="{{route('users.create')}}" class="btn btn-success btn-rounded waves-effect waves-light mb-2 me-2"><i class="mdi mdi-plus me-1"></i>Add Candidate</a>
+                                        <a href="{{route('candidates.upload')}}" class="btn btn-info btn-rounded waves-effect waves-light mb-2 me-2"><i class="mdi mdi-plus me-1"></i>Upload Candidates</a>
                                     </div>
                                 </div><!-- end col-->
                             </div>
@@ -176,11 +73,8 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @if(!empty($users))
-                                        @foreach($users as $user)
-                                        @if($user->hasanyRole('admin'))
-                                        @continue
-                                        @endif
+                                        @if(!empty($candidates))
+                                        @foreach($candidates as $candidate)
                                         <tr>
                                             {{-- <td class="text-center"><input name='id[]' type="checkbox" id="checkItem" 
                                                 value="{{$group->id}}"></td> --}}
@@ -190,27 +84,25 @@
                                                     <label class="form-check-label" for="orderidcheck01"></label>
                                                 </div>
                                             </td>
-                                            <td><a href="javascript: void(0);" class="text-body fw-bold">#{{$user->uuid}}</a> </td>
-                                            <td>{{$user->name}}</td>
+                                            <td><a href="javascript: void(0);" class="text-body fw-bold">#{{$candidate->uuid}}</a> </td>
+                                            <td>{{$candidate->name}}</td>
                                             {{-- <td>
-                                                {{$user->email}}
+                                                {{$candidate->email}}
                                             </td> --}}
-                                            @if(!empty($user->getRoleNames()))
-                                            @foreach($user->getRoleNames() as $v)
-                                            @if ( $v == 'admin')
-                                            @continue
-                                            @elseif( $v == 'client' )
+                                            @if(!empty($candidate->getRoleNames()))
+                                            @foreach($candidate->getRoleNames() as $v)
+                                            @if($v == 'candidate')
                                             <td>
-                                                <span class="badge rounded-pill bg-info font-size-12">{{ $v }}</span>
+                                                <span class="badge rounded-pill bg-success font-size-12">{{ $v }}</span>
                                             </td>
                                             @endif
                                             @endforeach
                                             @endif
                                             <td>
-                                                {{$user->phone}}
+                                                {{$candidate->phone}}
                                             </td>
                                             <td>
-                                                {{$user['created_at']->diffForHumans()}}
+                                                {{$candidate['created_at']->diffForHumans()}}
                                             </td> 
                                             {{-- <td>
                                                 <!-- Button trigger modal -->
@@ -220,8 +112,8 @@
                                             </td> --}}
                                             <td>
                                                 <div class="d-flex gap-3">
-                                                    <a href="{{route('users.edit', $user->id)}}" class="text-success"><i class="mdi mdi-pencil font-size-18"></i></a>
-                                                    <a href="{{route('users.kill', $user->id)}}" class="text-danger delete-confirm" data-name ="{{ $user->name }}">
+                                                    <a href="{{route('users.edit', $candidate->id)}}" class="text-success"><i class="mdi mdi-pencil font-size-18"></i></a>
+                                                    <a href="{{route('users.kill', $candidate->id)}}" class="text-danger delete-confirm" data-name ="{{ $candidate->name }}">
                                                         <i class="mdi mdi-delete font-size-18"></i></a>
                                                 </div>
                                             </td>
@@ -235,7 +127,6 @@
                     </div>
                 </div>
             </div>
-            @endif
             <!-- end row -->
         </div> <!-- container-fluid -->
     </div>
@@ -358,6 +249,6 @@
             }
       });
 });
-</script> 
+</script>
 @endsection
 

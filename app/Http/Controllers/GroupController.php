@@ -21,10 +21,16 @@ class GroupController extends Controller
      */
     public function index()
     {
-        $user = auth()->user()->id;
-        $groups = Group::where('user_id', $user)->withCount('users')->get();
-        //dd($groups);
+        $groups = Group::orderBy('created_at', 'desc')->withCount('candidates')->get();
         return view('groups.index')->with('groups', $groups);
+    }
+
+    public function clients_grp()
+    {
+        $user = auth()->user()->id;
+        $groups = Group::where('user_id', $user)->withCount('candidates')->get();
+        //dd($groups);
+        return view('groups.clients')->with('groups', $groups);
     }
 
     public function importTemplate(){
@@ -141,10 +147,9 @@ class GroupController extends Controller
 
     public function group_users($group_name = null)
     {
-        $groups = User::orderBy('created_at','desc')->where('group_id', $group_name)->get();
+        $groups = Candidate::orderBy('created_at','desc')->where('group_id', $group_name)->get();
         //dd($groups);
         return view("groups.all_users")->with('groups',$groups)
                                         ->with("group_id",$group_name);
-
     }
 }

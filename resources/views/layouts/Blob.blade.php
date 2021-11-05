@@ -91,6 +91,7 @@
   <script src="{{asset('assets/js/pages/pagination.js')}}"></script>
   <script type="text/javascript">
     var cand_id = '<?= $cand_id ?>';
+    var id      = '<?= $id ?>';
  </script>
   <script src="{{asset('assets/js/index.js')}}" async></script>
   {{-- <script src="{{asset('assets/js/pages/timer.js')}}"></script> --}}
