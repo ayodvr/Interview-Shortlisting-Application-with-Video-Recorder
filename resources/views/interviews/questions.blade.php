@@ -1,7 +1,15 @@
 <div class="mb-4 mb-md-5">
     <div id="text" class="tag_container">
         {{-- <h2 class="text-primary">Interview Questions</h2> --}}
-        <p class="text-muted">Answer all the questions below by clicking the record button to activate your webcam and then press.</p>
+        <div class="alert alert-success text-center" style="display:none"></div>
+         <div class="alert alert-danger text-center" style="display:none">
+            <ul>
+               @foreach ($errors->all() as $error)
+                  <li>{{ $error }}</li>
+               @endforeach
+            </ul>
+         </div>
+        <h4 class="text-muted"><u><b>READ AND ANSWER ALL QUESTIONS</b></u></h4>
         <br><br>
         @foreach($questions as $data)
         <ul>

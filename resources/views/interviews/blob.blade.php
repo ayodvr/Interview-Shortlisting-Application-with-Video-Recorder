@@ -16,7 +16,7 @@
                 <?php
                     $cand_id  = $interview["newuser_id"];
                     $id       = $interview["id"];
-                    // $group_id = $interview["group_id"];
+                    $client_id = $interview["user_id"];
                 ?>
 
 <div>
@@ -69,14 +69,6 @@
                             <div class="mb-4 mb-md-5">
                                 <div class="tag_container">
                                     @include('interviews.questions')
-                                    <div class="alert alert-success" style="display:none"></div>
-                                    <div class="alert alert-danger" style="display:none">
-                                        <ul>
-                                            @foreach ($errors->all() as $error)
-                                                <li>{{ $error }}</li>
-                                            @endforeach
-                                        </ul>
-                                    </div>
                                     <button id="save" style="margin-left:150px;" data-toggle="tooltip" data-placement="top" title="Click to submit" class="btn btn-dark insert">Finish</button>
                                 </div>
                             </div>

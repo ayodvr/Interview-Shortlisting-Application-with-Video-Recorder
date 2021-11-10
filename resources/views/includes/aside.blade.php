@@ -8,7 +8,8 @@
             <!-- Left Menu Start -->
             <ul class="metismenu list-unstyled" id="side-menu">
                 {{-- <li class="menu-title" key="t-menu">Admin</li> --}}
-
+                {{-- <hr> --}}
+                <br>
                 <li>
                     <a href="/index" class="waves-effect">
                         <i class="bx bx-home-circle"></i>
@@ -22,58 +23,43 @@
                 @elseif (!is_null(auth()->user()) && auth()->user()->hasanyRole('client'))
 
                 <li class="menu-title" key="t-apps">Client</li>
-
-                @elseif (!is_null(auth()->user()) && auth()->user()->hasanyRole('candidate'))
-
-                <li class="menu-title" key="t-apps">Candidate</li>
-                
                 @endif
 
                 @if (!is_null(auth()->user()) && auth()->user()->hasanyRole('admin'))
                 <li>
-                    <a href="javascript: void(0);" class="has-arrow waves-effect">
+                    <a href="{{route('users.index')}}" class="waves-effect">
                         <i class="bx bx-group"></i>
                         <span key="t-ecommerce">Clients</span>
                     </a>
-                    <ul class="sub-menu" aria-expanded="false">
-                        {{-- <li><a href="{{route('users.create')}}" key="t-products">Create user</a></li> --}}
-                        <li><a href="{{route('users.index')}}" key="t-product-detail">Manage clients</a></li>
-                    </ul>
                 </li>
                 @endif
                 
                 <li>
-                    <a href="javascript: void(0);" class="has-arrow waves-effect">
+                    @if (!is_null(auth()->user()) && auth()->user()->hasanyRole('client'))
+                    <a href="{{route('adminCands')}}" class="waves-effect">
                         <i class="bx bx-group"></i>
                         <span key="t-invoices">Candidates</span>
                     </a>
-                    @if (!is_null(auth()->user()) && auth()->user()->hasanyRole('client'))
-                    <ul class="sub-menu" aria-expanded="false">
-                        <li><a href="{{route('adminCands')}}" key="t-wallet">Manage Candidates</a></li>
-                    </ul>
                     @elseif(!is_null(auth()->user()) && auth()->user()->hasanyRole('admin'))
-                    <ul class="sub-menu" aria-expanded="false">
-                        <li><a href="{{route('candidates.index')}}" key="t-wallet">Manage Candidates</a></li>
-                    </ul>
+                    <a href="{{route('candidates.index')}}" class="waves-effect">
+                        <i class="bx bx-group"></i>
+                        <span key="t-invoices">Candidates</span>
+                    </a>
                     @endif
                 </li>
                 
                 <li>
-                    <a href="javascript: void(0);" class="has-arrow waves-effect">
+                    @if (!is_null(auth()->user()) && auth()->user()->hasanyRole('admin'))
+                    <a href="{{route('groups.index')}}" class="waves-effect">
                         <i class="bx bx-group"></i>
                         <span key="t-invoices">Groups</span>
                     </a>
-                    @if (!is_null(auth()->user()) && auth()->user()->hasanyRole('admin'))
-                    <ul class="sub-menu" aria-expanded="false">
-                        {{-- <li><a href="{{route('groups.create')}}" key="t-wallet">Create group</a></li> --}}
-                        <li><a href="{{route('groups.index')}}" key="t-wallet">Manage groups</a></li>
-                    </ul>
                     @elseif (!is_null(auth()->user()) && auth()->user()->hasanyRole('client'))
-                    <ul class="sub-menu" aria-expanded="false">
-                        {{-- <li><a href="{{route('groups.create')}}" key="t-wallet">Create group</a></li> --}}
-                        <li><a href="{{route('groups.clients')}}" key="t-wallet">Manage groups</a></li>
-                    </ul>
-                    @endif
+                    <a href="{{route('groups.clients')}}" class="waves-effect">
+                        <i class="bx bx-group"></i>
+                        <span key="t-invoices">Groups</span>
+                    </a>
+                    @endif            
                 </li>
                 
                 <li class="menu-title" key="t-pages">Interview</li>

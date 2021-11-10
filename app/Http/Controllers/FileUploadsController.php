@@ -10,18 +10,21 @@ use App\Candidate;
 class FileUploadsController extends Controller
 {
     public function all_entries(){
-
+        $auth = auth()->user()->id;
         $sessions = FileUploads::orderBy('created_at', 'desc')->paginate(6);
+        $admins = FileUploads::where('client_id', $auth)->paginate(6);
         if($sessions->isEmpty()){
+            notify()->error("No record found!","Error");
             return redirect()->back();
         }else{
-            $cand_id = $sessions->pluck('candidate_id');
-            $lubbish = Candidate::where('id', $cand_id)->get()->pluck('name','phone');
-            //dd($lubbish);
+            $client_id = $sessions->pluck('client_id');
+            $lubbish = Candidate::where('user_id', $client_id)->get()->pluck('name','phone');
+            //dd($sessions);
             foreach ($lubbish as $phone => $name) {
                 return view('entries.all_records')->with('sessions', $sessions)
                                         ->with('name', $name)
-                                        ->with('phone', $phone);
+                                        ->with('phone', $phone)
+                                        ->with('admins', $admins);
             }
         }
     }
@@ -36,7 +39,7 @@ class FileUploadsController extends Controller
             
             'interview_id'=>'required',
             'candidate_id'=>'required',
-            // 'group_id'    =>'required',
+            'client_id'    =>'required',
             'video-blob'  => 'required|file|mimetypes:video/webm|max:800000'
         ]);
 
@@ -52,6 +55,7 @@ class FileUploadsController extends Controller
             $blob = new FileUploads;
             $blob->interview_id = $request->interview_id;
             $blob->candidate_id = $request->candidate_id;
+            $blob->client_id = $request->client_id;
             $blob->video_blob   = $fileNameToStore;
 
         if($blob->save()){

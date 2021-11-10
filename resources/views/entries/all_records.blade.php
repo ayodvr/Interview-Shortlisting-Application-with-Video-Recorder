@@ -22,13 +22,47 @@
                 </div>
             </div>
             <!-- end page title -->
+            @if (!is_null(auth()->user()) && auth()->user()->hasanyRole('client'))
+            <div class="row">
+                @foreach($admins as $admin)
+                <div class="col-xl-4 col-sm-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <video width="300" height="170" controls>
+                                <source src="{{ $admin->video_blob }}" type="video/webm">
+                            </video>
+                        </div>
+                        <div class="px-4 py-3 border-top">
+                            <ul class="list-inline mb-0">
+                                <li class="list-inline-item me-3">
+                                    @if(!empty($name))
+                                    <span class="badge bg-success">{{$name}}</span>
+                                    @endif
+                                </li>
+                                <li class="list-inline-item me-3">
+                                    <i class="bx bx-calendar me-1"></i>{{$admin['created_at']->toDayDateTimeString()}}
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                @endforeach
+            </div>
+            <!-- end row -->
+            <div class="row">
+                <div class="col-lg-12">
+                    {{ $admins->links() }}
+                </div>
+            </div>
+            @endif
 
+            @if (!is_null(auth()->user()) && auth()->user()->hasanyRole('admin'))
             <div class="row">
                 @foreach($sessions as $session)
                 <div class="col-xl-4 col-sm-12">
-                    <div class="card dark">
+                    <div class="card">
                         <div class="card-body">
-                            <video width="300" height="200" controls>
+                            <video width="300" height="170" controls>
                                 <source src="{{ $session->video_blob }}" type="video/webm">
                             </video>
                         </div>
@@ -49,12 +83,12 @@
                 @endforeach
             </div>
             <!-- end row -->
-            {{ $sessions->links() }}
             <div class="row">
                 <div class="col-lg-12">
-                   
+                    {{ $sessions->links() }}
                 </div>
             </div>
+            @endif
             <!-- end row -->
             
         </div> <!-- container-fluid -->

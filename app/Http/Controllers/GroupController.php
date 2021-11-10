@@ -21,7 +21,7 @@ class GroupController extends Controller
      */
     public function index()
     {
-        $groups = Group::orderBy('created_at', 'desc')->withCount('candidates')->get();
+        $groups = Group::orderBy('created_at', 'desc')->withCount('candidates')->paginate();
         return view('groups.index')->with('groups', $groups);
     }
 
@@ -36,7 +36,8 @@ class GroupController extends Controller
     public function importTemplate(){
 
         Excel::import(new GroupsImport, request()->file('file'));
-        return back()->with('success', 'Groups uploaded successfully');
+        notify()->success("Groups uploaded!","Success");
+        return back();
     }
 
     public function downloadGroupTemplate()
@@ -81,8 +82,8 @@ class GroupController extends Controller
         ];
 
         Group::create($data);
-
-        return redirect()->back()->withSuccess('Group Created!');
+        notify()->success("Group created!","Success");
+        return redirect()->back();
     }
 
     /**
@@ -142,7 +143,8 @@ class GroupController extends Controller
 
         $group->delete();
 
-        return redirect()->back()->withSuccess('Group Deleted!');
+        notify()->success("Group deleted!","Success");
+        return redirect()->back();
     }
 
     public function group_users($group_name = null)

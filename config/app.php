@@ -164,6 +164,7 @@ return [
         Spatie\Permission\PermissionServiceProvider::class,
         Maatwebsite\Excel\ExcelServiceProvider::class,
         Spatie\UrlSigner\Laravel\UrlSignerServiceProvider::class,
+        LaraIzitoast\LaraIzitoastServiceProvider::class,
 
         
 
@@ -235,6 +236,7 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
         'Excel' => Maatwebsite\Excel\Facades\Excel::class,
         'UrlSigner' => Spatie\UrlSigner\Laravel\UrlSignerFacade::class,
+        
 
     ],
 

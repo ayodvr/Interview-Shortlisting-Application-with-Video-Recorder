@@ -20,7 +20,6 @@ class CreateFileUploadsTable extends Migration
             $table->string('video_blob');
             $table->integer('candidate_id');
             $table->integer('interview_id');
-            // $table->integer('group_id');
             $table->timestamps();
         });
     }

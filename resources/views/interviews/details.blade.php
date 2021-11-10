@@ -22,11 +22,46 @@
         <link href="{{asset('assets/css/icons.min.css')}}" rel="stylesheet" type="text/css" />
         <!-- App Css-->
         <link href="{{asset('assets/css/app.min.css')}}" id="app-style" rel="stylesheet" type="text/css" />
+        <style>
+            /* body {
+            overflow: hidden;
+            } */
 
+
+            /* Preloader */
+
+            #preloader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #fff;
+            /* change if the mask should have another color then white */
+            z-index: 99;
+            /* makes sure it stays on top */
+            }
+
+            #status {
+            width: 200px;
+            height: 200px;
+            position: absolute;
+            left: 50%;
+            /* centers the loading animation horizontally one the screen */
+            top: 50%;
+            /* centers the loading animation vertically one the screen */
+            background-image: url(https://res.cloudinary.com/bridge-gap/image/upload/v1636475845/1495_n7jera.gif);
+            /* path to your loading animation */
+            background-repeat: no-repeat;
+            background-position: center;
+            margin: -100px 0 0 -100px;
+            /* is width and height divided by two */
+            }
+        </style>
     </head>
 
     <body data-bs-spy="scroll" data-bs-target="#topnav-menu" data-bs-offset="60">
-
+        
         <nav class="navbar navbar-expand-lg navigation fixed-top sticky">
             <div class="container">
                 {{-- <a class="navbar-logo" href="index.html">
@@ -70,7 +105,9 @@
                 </div>
             </div>
         </nav>
-
+        <div id="preloader">
+            <div id="status">&nbsp;</div>
+          </div>
         <!-- hero section start -->
         <section class="section hero-section bg-ico-hero" id="home">
             <div class="bg-overlay bg-primary"></div>
@@ -81,7 +118,7 @@
                             <h1 class="text-white fw-semibold mb-3 hero-title">Virtual Interview Session</h1>
                             <p class="font-size-14">{{ $interview['instruction']}}</p>
                             <div class="button-items mt-4">
-                                <a href="{{route('show.interview', [$id, $user_id])}}" class="btn btn-success">Proceed to interview</a>
+                                <a href="{{route('show.interview', [$id, $user_id, $client_id])}}" class="btn btn-success">Proceed to interview</a>
                                 {{-- <a href="javascript: void(0);" class="btn btn-light">How it work</a> --}}
                             </div>
                         </div>
@@ -428,6 +465,13 @@
         <!-- Faqs end --> --}}
 
         <!-- JAVASCRIPT -->
+        <script>
+            $(window).on('load', function() { // makes sure the whole site is loaded 
+            $('#status').fadeOut(); // will first fade out the loading animation 
+            $('#preloader').delay(350).fadeOut('slow'); // will fade out the white DIV that covers the website. 
+            $('body').delay(350).css({'overflow':'visible'});
+            })
+        </script>
         <script src="{{asset('assets/libs/jquery/jquery.min.js')}}"></script>
         <script src="{{asset('assets/libs/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
         <script src="{{asset('assets/libs/metismenu/metisMenu.min.js')}}"></script>

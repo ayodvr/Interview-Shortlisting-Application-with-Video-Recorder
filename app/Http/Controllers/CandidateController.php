@@ -41,7 +41,8 @@ class CandidateController extends Controller
     public function importTemplate(Request $request){
 
         Excel::import(new CandidatesImport, request()->file('file'));
-        return back()->with('success', 'Candidates uploaded successfully');
+        notify()->success("Candidates uploaded!","Success");
+        return back();
     }
 
     /**
@@ -104,8 +105,8 @@ class CandidateController extends Controller
         //dd($data);
 
         $result = Candidate::create($data);
-
-        return redirect()->back()->with('success','Candidate created successfully');
+        notify()->success("Candidate created !","Success");
+        return redirect()->back();
 
         // if(User::create($data)){
 
@@ -164,7 +165,8 @@ class CandidateController extends Controller
 
         $candidate->update($data);
 
-        return redirect()->route('candidates.index')->with('success','Candidate updated successfully');
+        notify()->success("Candidate updated !","Success");
+        return redirect()->route('candidates.index');
     }
 
     /**
@@ -180,7 +182,8 @@ class CandidateController extends Controller
 
         $candidate->delete();
 
-        return redirect()->back()->withSuccess('Candidate Deleted!');
+        notify()->success("Candidate deleted !","Success");
+        return redirect()->back();
     }
 
     public function destroy($id)

@@ -78,7 +78,7 @@ submitButton.addEventListener('click', () => {
     formData.append('video-filename', fileObject.name);
     formData.append('candidate_id', cand_id);
     formData.append('interview_id', id);
-    // formData.append('group_id', group_id);
+    formData.append('client_id', client_id);
 
     $.ajax({
         headers:{'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
@@ -88,16 +88,12 @@ submitButton.addEventListener('click', () => {
         cache: false,
         contentType: false,
         processData: false,
-        beforeSend:function(){
-            $('#save').val("Submitting");
-        },
-          success: function(data) {
-              if (data === 'success') {
-                  $('.alert-success').show();
-                  $('.alert-success').html(data.success_info);
-              } 
-          },
-          error: function (request, status, error) {
+        success: function(data) { 
+          //console.log(data);
+            $('.alert-success').show();
+            $('.alert-success').html(data.success_info);
+              // window.location = 'http://127.0.0.1:8000/index';
+          },error: function (request, status, error) {
             var json = $.parseJSON(request.responseText);
             $.each(json.errors, function(key, value){
                 $('.alert-danger').show();

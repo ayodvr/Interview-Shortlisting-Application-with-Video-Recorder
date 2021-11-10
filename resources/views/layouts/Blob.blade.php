@@ -23,7 +23,7 @@
         <link href="//fonts.googleapis.com/css?family=Roboto:300,400,500,700" rel="stylesheet" type="text/css">
         <!-- owl.carousel css -->
         <link rel="stylesheet" href="{{asset('assets/libs/owl.carousel/assets/owl.carousel.min.css')}}">
-
+        <link rel="stylesheet" href="{{ asset('css/iziToast.css') }}">
         <link rel="stylesheet" href="{{asset('assets/libs/owl.carousel/assets/owl.theme.default.min.css')}}">
 
         <!-- Bootstrap Css -->
@@ -69,6 +69,40 @@
         padding-top: 5px;
         font-size: 16px;
         }
+        body {
+            overflow: hidden;
+            }
+
+
+            /* Preloader */
+
+            #preloader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #fff;
+            /* change if the mask should have another color then white */
+            z-index: 99;
+            /* makes sure it stays on top */
+            }
+
+            #status {
+            width: 200px;
+            height: 200px;
+            position: absolute;
+            left: 50%;
+            /* centers the loading animation horizontally one the screen */
+            top: 50%;
+            /* centers the loading animation vertically one the screen */
+            background-image: url(https://res.cloudinary.com/bridge-gap/image/upload/v1636475845/1495_n7jera.gif);
+            /* path to your loading animation */
+            background-repeat: no-repeat;
+            background-position: center;
+            margin: -100px 0 0 -100px;
+            /* is width and height divided by two */
+            }
 
         /* .startClock {
                 
@@ -77,8 +111,9 @@
         </style>
     </head>
     <body class="auth-body-bg">
-
-
+      <div id="preloader">
+        <div id="status">&nbsp;</div>
+      </div>
         @yield('blob')
 
 
@@ -89,10 +124,20 @@
 </footer>
 {{-- <script src="https://www.webrtc-experiment.com/common.js"></script> --}}
   <script src="{{asset('assets/js/pages/pagination.js')}}"></script>
+  <script>
+    $(window).on('load', function() { // makes sure the whole site is loaded 
+    $('#status').fadeOut(); // will first fade out the loading animation 
+    $('#preloader').delay(350).fadeOut('slow'); // will fade out the white DIV that covers the website. 
+    $('body').delay(350).css({'overflow':'visible'});
+    })
+</script>
   <script type="text/javascript">
     var cand_id = '<?= $cand_id ?>';
     var id      = '<?= $id ?>';
+    var client_id  = '<?= $client_id ?>';
  </script>
+ <script src="{{ asset('js/iziToast.js') }}"></script>
+ @include('vendor.lara-izitoast.toast')
   <script src="{{asset('assets/js/index.js')}}" async></script>
   {{-- <script src="{{asset('assets/js/pages/timer.js')}}"></script> --}}
   <script src="{{asset('assets/libs/jquery/jquery.min.js')}}"></script>

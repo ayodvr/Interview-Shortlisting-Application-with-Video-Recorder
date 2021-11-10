@@ -16,10 +16,10 @@ use \Illuminate\Support\Facades\URL;
 Route::resource('/interview', 'InterviewController');
 Route::post('/blob-upload', 'FileUploadsController@saveBlob');
 
-Route::get('/details/{id}/{user_id}', 'InterviewController@details')->name('details');
+Route::get('/details/{id}/{user_id}/{client_id}', 'InterviewController@details')->name('details');
 
 // URL::temporarySignedRoute('detail.show', now()->addSeconds(5));
-Route::get('/interview/{id}/{user_id}', 'InterviewController@show_interview')->name('show.interview');
+Route::get('/interview/{id}/{user_id}/{client_id}', 'InterviewController@show_interview')->name('show.interview');
 
 Route::middleware(['auth'])->group(function () {
 

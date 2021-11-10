@@ -53,7 +53,8 @@ class UserController extends Controller
     public function importTemplate(){
 
         Excel::import(new UsersImport, request()->file('file'));
-        return back()->with('success', 'Users uploaded successfully');
+        notify()->success("Upload successful!","Success");
+        return back();
     }
 
     public function upload()
@@ -130,8 +131,9 @@ class UserController extends Controller
 
         // dd($Role);
         // Candidate::create($Role);
+        notify()->success("User created!","Success");
 
-        return redirect()->back()->with('success','Users created successfully');
+        return redirect()->back();
 
         // if(User::create($data)){
 
@@ -196,7 +198,9 @@ class UserController extends Controller
 
         $user->assignRole($request->input('role'));
 
-        return redirect()->route('users.index')->with('success','User updated successfully');
+        notify()->success("User updated!","Success");
+
+        return redirect()->route('users.index');
     }
 
     /**
@@ -214,9 +218,12 @@ class UserController extends Controller
     {
         $user = User::findorfail($id);
 
-        $user->delete();
+        if($user->delete()){
 
-        return redirect()->back()->with('success','User deleted successfully');
+            notify()->success("User deleted!","Success");
+        }
+
+        return redirect()->back();
     }
 
         public function downloadCandidateTemplate()

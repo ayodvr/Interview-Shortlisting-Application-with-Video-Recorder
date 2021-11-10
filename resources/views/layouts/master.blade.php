@@ -17,7 +17,7 @@
         <link href="{{asset('assets/libs/bootstrap-timepicker/css/bootstrap-timepicker.min.css')}}" rel="stylesheet" type="text/css">
         <link href="{{asset('assets/libs/bootstrap-touchspin/jquery.bootstrap-touchspin.min.css')}}" rel="stylesheet" type="text/css" />
         <link rel="stylesheet" href="{{asset('assets/libs/@chenfengyuan/datepicker/datepicker.min.css')}}">
-
+        <link rel="stylesheet" href="{{ asset('css/iziToast.css') }}">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 
         <link href="{{asset('assets/libs/datatables.net-bs4/css/dataTables.bootstrap4.min.css')}}" rel="stylesheet" type="text/css" />
@@ -36,21 +36,63 @@
             #myVideo {
                 background-color: rgb(31, 31, 32);
             }
+            body {
+            overflow: hidden;
+            }
+
+
+            /* Preloader */
+
+            #preloader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #fff;
+            /* change if the mask should have another color then white */
+            z-index: 99;
+            /* makes sure it stays on top */
+            }
+
+            #status {
+            width: 200px;
+            height: 200px;
+            position: absolute;
+            left: 50%;
+            /* centers the loading animation horizontally one the screen */
+            top: 50%;
+            /* centers the loading animation vertically one the screen */
+            background-image: url(https://res.cloudinary.com/bridge-gap/image/upload/v1636475845/1495_n7jera.gif);
+            /* path to your loading animation */
+            background-repeat: no-repeat;
+            background-position: center;
+            margin: -100px 0 0 -100px;
+            /* is width and height divided by two */
+            }
         </style>
     </head>
     <body data-sidebar="dark">
+        <div id="preloader">
+            <div id="status">&nbsp;</div>
+          </div>
         <div id="layout-wrapper">
             @include('includes.nav')
             @include('includes.aside')
             @yield('content')
             @include('includes.footer')
         </div>
-
-    
        
         <!-- JAVASCRIPT -->
         @include('sweetalert::alert')
         <script src="{{asset('assets/libs/jquery/jquery.min.js')}}"></script>
+        <script>
+            $(window).on('load', function() { // makes sure the whole site is loaded 
+            $('#status').fadeOut(); // will first fade out the loading animation 
+            $('#preloader').delay(350).fadeOut('slow'); // will fade out the white DIV that covers the website. 
+            $('body').delay(350).css({'overflow':'visible'});
+            })
+        </script>
         <script src="{{asset('assets/libs/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
         <script src="{{asset('assets/libs/metismenu/metisMenu.min.js')}}"></script>
         <script src="{{asset('assets/libs/simplebar/simplebar.min.js')}}"></script>
@@ -62,7 +104,8 @@
         <script src="{{asset('assets/libs/bootstrap-touchspin/jquery.bootstrap-touchspin.min.js')}}"></script>
         <script src="{{asset('assets/libs/bootstrap-maxlength/bootstrap-maxlength.min.js')}}"></script>
         <script src="{{asset('assets/libs/@chenfengyuan/datepicker/datepicker.min.js')}}"></script>
-
+        <script src="{{ asset('js/iziToast.js') }}"></script>
+        @include('vendor.lara-izitoast.toast')
         <script rel="stylesheet" src="{{ asset('/vendor/zusamarehan/tourify/js/hopscotch.js') }}"></script>
         <!-- form advanced init -->
         <script src="{{asset('assets/js/pages/form-advanced.init.js')}}"></script>

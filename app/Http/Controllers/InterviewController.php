@@ -107,12 +107,12 @@ class InterviewController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    public function details($id="", $user_id ="")
+    public function details($id="", $user_id ="", $client_id ="")
     {
         $interview = Interview::where('id', $id)->first();
         //dd($interview);
         return view('interviews.details')->with('interview', $interview)
-                                        ->with(['id' => $id, 'user_id' => $user_id]);
+                                        ->with(['id' => $id,'user_id' => $user_id,'client_id' => $client_id]);
 
     }
 
@@ -191,7 +191,7 @@ class InterviewController extends Controller
         $group = $request->get('group_id');
 
         $emails = Candidate::where('group_id', $group)->pluck('email','id');
-        //dd($emails);
+
         $dispatch_mails = $emails;
     
         foreach($dispatch_mails as $user_id => $email){
@@ -199,6 +199,7 @@ class InterviewController extends Controller
             \Mail::send('emails.interviewMail',array(
 
                 'id'    => $interview->id,
+                'client_id'    => $interview->user_id,
                 'user_id' => $user_id,
                 'subject' => $request->get('subject'),
                 'email_content'  => $request->get('email_content'),
@@ -212,7 +213,9 @@ class InterviewController extends Controller
             }
         }
 
-        return redirect()->route('interview.create')->with('success','Links sent successfully');
+        notify()->success("Links sent to mail!","Success");
+
+        return redirect()->route('interview.create');
     }
 
     /**
