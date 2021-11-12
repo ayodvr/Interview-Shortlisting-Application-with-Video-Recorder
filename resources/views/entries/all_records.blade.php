@@ -35,9 +35,7 @@
                         <div class="px-4 py-3 border-top">
                             <ul class="list-inline mb-0">
                                 <li class="list-inline-item me-3">
-                                    @if(!empty($name))
-                                    <span class="badge bg-success">{{$name}}</span>
-                                    @endif
+                                    <span class="badge bg-success">{{$admin->candidates->name}}</span>
                                 </li>
                                 <li class="list-inline-item me-3">
                                     <i class="bx bx-calendar me-1"></i>{{$admin['created_at']->toDayDateTimeString()}}
@@ -69,9 +67,7 @@
                         <div class="px-4 py-3 border-top">
                             <ul class="list-inline mb-0">
                                 <li class="list-inline-item me-3">
-                                    @if(!empty($name))
-                                    <span class="badge bg-success">{{$name}}</span>
-                                    @endif
+                                    <span class="badge bg-success">{{$session->candidates->name}}</span>
                                 </li>
                                 <li class="list-inline-item me-3">
                                     <i class="bx bx-calendar me-1"></i>{{$session['created_at']->toDayDateTimeString()}}

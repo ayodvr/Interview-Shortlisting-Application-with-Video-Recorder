@@ -22,4 +22,8 @@ class FileUploads extends Model
     public function questions(){
         return $this->hasMany('App\Question');
     }
+
+    public function candidates(){
+        return $this->belongsTo('App\Candidate','candidate_id','id');
+    }
 }

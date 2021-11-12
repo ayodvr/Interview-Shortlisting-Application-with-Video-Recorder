@@ -44,7 +44,7 @@
                             <h4 class="card-title">Manage candidates</h4>
                             <div class="text-sm-end">
                                 <a href="{{route('candidates.create')}}" class="btn btn-success btn-rounded waves-effect waves-light mb-2 me-2"><i class="mdi mdi-plus me-1"></i>Add Candidate</a>
-                                <a href="{{route('candidates.upload')}}" class="btn btn-info btn-rounded waves-effect waves-light mb-2 me-2" style="float: right"><i class="mdi mdi-upload me-1"></i>Upload Candidate</a>
+                                <a href="{{route('candidates.upload')}}" class="btn btn-info btn-rounded waves-effect waves-light mb-2 me-2" style="float: right"><i class="mdi mdi-upload me-1"></i>Upload</a>
                             </div>
                             <br>
                             <div class="table-responsive">

@@ -59,7 +59,7 @@
                     <div class="d-flex justify-content-center">
                         <div id="clockdiv" style="text-align: center">
                             <div>
-                            <span id="countdown" >00 : 10</span>
+                            <span id="countdown" >02 : 00</span>
                             {{-- <div class="smalltext">Seconds</div> --}}
                             </div>
                         </div>

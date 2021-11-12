@@ -225,6 +225,7 @@ function triggerTime() {
       clearTimeout(timeoutMyOswego);
         stopRecording();
         recordButton.disabled = true;
+        $("#myModal").modal();
         submitButton.disabled = false;
     }
   }

@@ -13,24 +13,14 @@ class FileUploadsController extends Controller
         $auth = auth()->user()->id;
         $sessions = FileUploads::orderBy('created_at', 'desc')->paginate(6);
         $admins = FileUploads::where('client_id', $auth)->paginate(6);
-        if($sessions->isEmpty()){
+        if($sessions->isEmpty() || $admins->isEmpty()){
             notify()->error("No record found!","Error");
             return redirect()->back();
         }else{
-            $client_id = $sessions->pluck('client_id');
-            $lubbish = Candidate::where('user_id', $client_id)->get()->pluck('name','phone');
-            //dd($sessions);
-            foreach ($lubbish as $phone => $name) {
-                return view('entries.all_records')->with('sessions', $sessions)
-                                        ->with('name', $name)
-                                        ->with('phone', $phone)
-                                        ->with('admins', $admins);
-            }
+            return view('entries.all_records')->with('sessions', $sessions)
+                                              ->with('admins', $admins);
         }
     }
-
-
-
 
     public function saveBlob(Request $request)
     {
