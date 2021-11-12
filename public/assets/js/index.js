@@ -154,6 +154,7 @@ function startRecording() {
 
 function stopRecording() {
   mediaRecorder.stop();
+  alert('Session stopped!');
   clearTimeout(timeoutMyOswego);
 }
 
@@ -223,9 +224,9 @@ function triggerTime() {
     // var x = document.getElementById("clockdiv");
     if (secondsToTime(seconds) == '00:00') {
       clearTimeout(timeoutMyOswego);
+      alert('Time up!');
         stopRecording();
         recordButton.disabled = true;
-        $("#myModal").modal();
         submitButton.disabled = false;
     }
   }

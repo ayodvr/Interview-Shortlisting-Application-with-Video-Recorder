@@ -11,7 +11,7 @@ class FileUploadsController extends Controller
 {
     public function all_entries(){
         $auth = auth()->user()->id;
-        $sessions = FileUploads::orderBy('created_at', 'desc')->paginate(6);
+        $sessions = FileUploads::orderBy('created_at', 'asc')->paginate(6);
         $admins = FileUploads::where('client_id', $auth)->paginate(6);
         if($sessions->isEmpty() || $admins->isEmpty()){
             notify()->error("No record found!","Error");
