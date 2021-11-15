@@ -27,21 +27,12 @@ Route::get('/', function () {
     return view('auth/login');
 });
 
-Route::get('/all_entries', function () {
-    return view('entries/index');
+Route::get('/session_complete', function () {
+    return view('interviews/complete');
 });
 
-Route::get('/all_sessions', function () {
-    return view('entries/all_records');
-});
-
-
-Route::get('/interview', function () {
-    return view('Batchs/interview_batch');
-});
 
 Route::get('/all_sessions', 'FileUploadsController@all_entries')->name('all_entries');
-Route::resource('/users', 'UserController');
 Route::get('/index', 'UserController@dashboard')->name('users.dashboard');
 Route::get('/users/kill/{id}', 'UserController@kill')->name('users.kill');
 Route::get('/downloadTemplate', 'UserController@downloadCandidateTemplate')->name('candidates.template');

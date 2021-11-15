@@ -92,7 +92,7 @@ submitButton.addEventListener('click', () => {
           //console.log(data);
             $('.alert-success').show();
             $('.alert-success').html(data.success_info);
-              // window.location = 'http://127.0.0.1:8000/index';
+              window.location = 'http://127.0.0.1:8000/session_complete';
           },error: function (request, status, error) {
             var json = $.parseJSON(request.responseText);
             $.each(json.errors, function(key, value){
