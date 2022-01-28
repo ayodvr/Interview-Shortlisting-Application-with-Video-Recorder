@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Candidate;
 use App\Group;
 use App\User;
@@ -10,6 +9,12 @@ use App\Imports\CandidatesImport;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Str;
 use Spatie\Permission\Models\Role;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Reader\Exception;
+use PhpOffice\PhpSpreadsheet\Writer\Xls;
+use PhpOffice\PhpSpreadsheet\IOFactory;
 
 class CandidateController extends Controller
 {
@@ -38,11 +43,44 @@ class CandidateController extends Controller
         return $myuuid;
     }
 
-    public function importTemplate(Request $request){
+    function importTemplate(Request $request){
 
-        Excel::import(new CandidatesImport, request()->file('file'));
-        notify()->success("Candidates uploaded!","Success");
-        return back();
+        $this->validate($request, [
+            'file' => 'required|file|mimes:xls,xlsx',
+            'group_id' => 'required'
+        ]);
+
+        $the_file = $request->file('file');
+        try{
+            $spreadsheet = IOFactory::load($the_file->getRealPath());
+            $sheet        = $spreadsheet->getActiveSheet();
+            $row_limit    = $sheet->getHighestDataRow();
+            $column_limit = $sheet->getHighestDataColumn();
+            $row_range    = range( 2, $row_limit );
+            $column_range = range( 'F', $column_limit );
+            $startcount = 2;
+            $data = array();
+            foreach ( $row_range as $row ) {
+                $data[] = [
+                    'Name'     => $sheet->getCell( 'A' . $row )->getValue(),
+                    'email'    => $sheet->getCell( 'B' . $row )->getValue(),
+                    'phone'    => $sheet->getCell( 'C' . $row )->getValue(),
+                    'uuid'     => $this->realUniqId(),
+                    'user_id'  => auth()->user()->id,
+                    'group_id' => $request['group_id'],
+                    'image'    => 'none.jpg'
+                ];
+                $startcount++;
+            }
+            DB::table('candidates')->insert($data);
+
+        } catch (Exception $e) {
+            $error_code = $e->errorInfo[1];
+            notify()->error("Candidates not uploaded!","Fail");
+            return back();
+        }
+            notify()->success("Candidates uploaded!","Success");
+            return back();
     }
 
     /**

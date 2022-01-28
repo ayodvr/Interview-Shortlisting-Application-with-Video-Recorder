@@ -33,10 +33,12 @@ Route::get('/session_complete', function () {
 
 
 Route::get('/all_sessions', 'FileUploadsController@all_entries')->name('all_entries');
+Route::resource('/users', 'UserController');
 Route::get('/index', 'UserController@dashboard')->name('users.dashboard');
 Route::get('/users/kill/{id}', 'UserController@kill')->name('users.kill');
 Route::get('/downloadTemplate', 'UserController@downloadCandidateTemplate')->name('candidates.template');
 Route::post('/importTemplate', 'UserController@importTemplate')->name('import_Template');
+Route::post('/candidate/importTemplate', 'CandidateController@importTemplate')->name('candidates.import_Template');
 Route::get('/downloadTemplate/groups', 'GroupController@downloadGroupTemplate')->name('groups.template');
 Route::get('/groups/kill/{id}', 'GroupController@kill')->name('groups.kill');
 Route::resource('/groups', 'GroupController');

@@ -19,6 +19,7 @@
         "laravel/ui": "^2.4",
         "livewire/livewire": "^2.6",
         "maatwebsite/excel": "^3.1",
+        "phpoffice/phpspreadsheet": "^1.21",
         "ramsey/uuid": "^4.2",
         "realrashid/sweet-alert": "^4.0",
         "spatie/laravel-permission": "^4.4",

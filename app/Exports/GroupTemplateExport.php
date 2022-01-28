@@ -2,23 +2,21 @@
 
 namespace App\Exports;
 
-use Maatwebsite\Excel\Concerns\FromCollection;
+use Maatwebsite\Excel\Concerns\FromArray;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 
-class GroupTemplateExport implements FromCollection, WithHeadings
+class GroupTemplateExport implements FromArray, WithHeadings
 {
     /**
     * @return \Illuminate\Support\Collection
     */
-    public function collection()
+    public function array(): array
     {
         return [];
     }
 
     public function headings(): array
     {
-        return [
-            'NAME',
-        ];
+        return ['NAME'];
     }
 }

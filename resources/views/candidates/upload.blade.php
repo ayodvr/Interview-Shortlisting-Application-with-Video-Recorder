@@ -43,7 +43,7 @@
                                 <a href="{{route('candidates.template')}}" class="btn btn-danger w-xs waves-effect waves-light" style="float: right">Download template</a>
                                 <h4 class="card-title mb-4">Upload candidates</h4>
                                 <br>
-                                <form method="POST" action="{{route('import_Template')}}" enctype="multipart/form-data">
+                                <form method="POST" action="{{route('candidates.import_Template')}}" enctype="multipart/form-data">
                                     @csrf
                                     <div class="row">
                                         <div class="col-sm-6">
